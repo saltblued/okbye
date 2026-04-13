@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>out of mind — community blocklists for X</title>
+<meta name="description" content="Share and install community blocklists for X. Out of sight, out of mind.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #191919;
+    --border: #222;
+    --border2: #2e2e2e;
+    --text: #e4e4e4;
+    --text2: #777;
+    --text3: #444;
+    --accent: #f0f0f0;
+    --green: #34d399;
+    --red: #f87171;
+    --blue: #60a5fa;
+    --amber: #fbbf24;
+    --violet: #a78bfa;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'Geist Mono', 'SF Mono', monospace;
+    --sans: 'Outfit', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: rgba(255,255,255,0.15); }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* ═══ HEADER ═══ */
+  header {
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .logo-text {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-style: italic;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .logo-dot {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 2px;
+  }
+
+  .nav-tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--surface);
+    padding: 3px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .nav-tab {
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text2);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { background: var(--bg); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+
+  /* ═══ HERO ═══ */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(52,211,153,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(42px, 7vw, 72px);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    color: var(--accent);
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--text2);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .hero-actions {
+    margin-top: 36px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 12px 28px;
+    border-radius: 99px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border2);
+  }
+  .btn-ghost:hover { border-color: var(--text2); color: var(--text); }
+  .btn-green {
+    background: var(--green);
+    color: #000;
+    font-weight: 600;
+  }
+  .btn-green:hover { opacity: 0.85; }
+  .btn-sm {
+    padding: 7px 16px;
+    font-size: 12px;
+  }
+
+  /* ═══ MAIN CONTAINER ═══ */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ═══ SECTIONS (toggled by nav) ═══ */
+  .section { display: none; padding-bottom: 80px; }
+  .section.active { display: block; animation: fadeUp 0.35s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═══ BROWSE ═══ */
+  .browse-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .browse-header h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0 14px;
+    width: 260px;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus-within { border-color: var(--text2); }
+  .search-box svg { flex-shrink: 0; opacity: 0.3; }
+  .search-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13px;
+    padding: 10px 0;
+    outline: none;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--sans);
+  }
+  .chip:hover { border-color: var(--text2); color: var(--text); }
+  .chip.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+  /* ═══ LIST CARDS ═══ */
+  .lists-container { display: grid; gap: 10px; }
+
+  .list-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .list-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .list-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .list-card h3 {
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .list-card .desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+    margin-bottom: 14px;
+    font-weight: 300;
+  }
+  .list-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+  }
+  .list-meta span { display: flex; align-items: center; gap: 4px; }
+  .cat-tag {
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .cat-spam { background: rgba(248,113,113,0.12); color: var(--red); }
+  .cat-bots { background: rgba(96,165,250,0.12); color: var(--blue); }
+  .cat-harassment { background: rgba(251,191,36,0.12); color: var(--amber); }
+  .cat-crypto { background: rgba(167,139,250,0.12); color: var(--violet); }
+  .cat-general { background: rgba(52,211,153,0.12); color: var(--green); }
+
+  .empty-state {
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--text3);
+  }
+  .empty-state .big { font-size: 40px; margin-bottom: 16px; }
+  .empty-state p { font-size: 14px; color: var(--text2); }
+
+  /* ═══ DETAIL VIEW ═══ */
+  #detailView {
+    display: none;
+    padding-bottom: 80px;
+  }
+  #detailView.active { display: block; animation: fadeUp 0.3s ease; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text2);
+    font-size: 13px;
+    cursor: pointer;
+    margin: 32px 0 24px;
+    background: none;
+    border: none;
+    font-family: var(--sans);
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--text); }
+
+  .detail-title {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .detail-desc {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 28px;
+  }
+  .detail-stats {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+  }
+
+  .detail-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  .accounts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .accounts-grid h4 {
+    width: 100%;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+  .acct-chip {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 8px;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .acct-chip:hover { border-color: var(--text2); color: var(--text); }
+
+  /* ═══ UPLOAD / SHARE ═══ */
+  .upload-section {
+    margin-top: 40px;
+  }
+  .upload-section h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .upload-section > p {
+    color: var(--text2);
+    font-size: 14px;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+
+  .step-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .step-block h3 {
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .step-block p {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .bookmarklet-drag {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: grab;
+    border: 2px dashed var(--text3);
+    margin: 16px 0;
+    user-select: none;
+    transition: transform 0.15s;
+    text-decoration: none;
+  }
+  .bookmarklet-drag:active { cursor: grabbing; transform: scale(0.97); }
+
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-family: var(--sans);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--text2); }
+  .form-group textarea {
+    font-family: var(--mono);
+    font-size: 13px;
+    min-height: 160px;
+    resize: vertical;
+    line-height: 1.8;
+  }
+  .form-group select { cursor: pointer; }
+  .form-help {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 6px;
+  }
+
+  .scrape-output {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+  }
+
+  /* ═══ HOW IT WORKS ═══ */
+  .how-section { margin-top: 40px; }
+  .how-section h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .how-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .how-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+  .how-card h3 {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .how-card p {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* ═══ TOAST ═══ */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    z-index: 500;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ═══ MODAL ═══ */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 32px;
+    width: 480px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: fadeUp 0.25s ease;
+  }
+  .modal-box h3 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .modal-box > p {
+    color: var(--text2);
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .modal-close {
+    float: right;
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text3);
+  }
+  footer a { color: var(--text2); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+  /* ═══ LOADING ═══ */
+  .loading-dots::after {
+    content: '';
+    animation: dots 1.5s infinite;
+  }
+  @keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 600px) {
+    header { padding: 14px 16px; }
+    .logo-text { font-size: 20px; }
+    .hero { padding: 50px 16px 40px; }
+    .hero h1 { font-size: 36px; letter-spacing: -1px; }
+    .container { padding: 0 16px; }
+    .search-box { width: 100%; }
+    .browse-header { flex-direction: column; align-items: flex-start; }
+    .detail-stats { gap: 20px; }
+    .stat-num { font-size: 22px; }
+    .detail-title { font-size: 28px; }
+    .nav-tabs { gap: 0; }
+    .nav-tab { padding: 8px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="logo" onclick="goHome()">
+    <span class="logo-text">out of mind</span>
+    <span class="logo-dot"></span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-tab="browse" onclick="switchTab('browse')">Browse</button>
+    <button class="nav-tab" data-tab="share" onclick="switchTab('share')">Share</button>
+    <button class="nav-tab" data-tab="how" onclick="switchTab('how')">How it works</button>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero" id="hero">
+  <h1>out of sight,<br>out of mind</h1>
+  <p>Community blocklists for X. Share your blocklist, install others. No manual blocking needed.</p>
+  <div class="hero-actions">
+    <button class="btn btn-primary" onclick="switchTab('browse')">Browse lists</button>
+    <button class="btn btn-ghost" onclick="switchTab('share')">Share yours</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ═══ BROWSE SECTION ═══ -->
+  <div class="section active" id="sec-browse">
+    <div class="browse-header">
+      <h2>Community lists</h2>
+      <div class="search-box">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="searchInput" placeholder="Search lists..." oninput="filterLists()">
+      </div>
+    </div>
+    <div class="filter-row" id="filterRow">
+      <button class="chip active" data-cat="all" onclick="setFilter('all')">All</button>
+      <button class="chip" data-cat="spam" onclick="setFilter('spam')">Spam</button>
+      <button class="chip" data-cat="bots" onclick="setFilter('bots')">Bots</button>
+      <button class="chip" data-cat="harassment" onclick="setFilter('harassment')">Harassment</button>
+      <button class="chip" data-cat="crypto" onclick="setFilter('crypto')">Crypto scams</button>
+      <button class="chip" data-cat="general" onclick="setFilter('general')">General</button>
+    </div>
+    <div class="lists-container" id="listsContainer">
+      <div class="empty-state">
+        <div class="big">⬛</div>
+        <p class="loading-dots">Loading lists</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SHARE SECTION ═══ -->
+  <div class="section" id="sec-share">
+    <div class="upload-section">
+      <h2>Share your blocklist</h2>
+      <p>Scrape your blocked accounts from X automatically, or paste them manually. Others can then install your list with one click.</p>
+
+      <!-- Step 1: Scrape -->
+      <div class="step-block">
+        <span class="step-num">Step 1 — Scrape</span>
+        <h3>Get your blocked accounts</h3>
+        <p>Drag this button to your bookmarks bar. Then go to <strong style="color:var(--text)">x.com/settings/blocked/all</strong> and click the bookmark. It auto-scrolls and copies all your blocked accounts.</p>
+        <br>
+        <a class="bookmarklet-drag" id="bookmarkletLink" href="javascript:void(0)" onclick="return false">
+          ⬛ Scrape Blocks
+        </a>
+        <p style="margin-top:12px"><em style="color:var(--text3);font-size:12px">Drag ↑ this to your bookmarks bar. Don't click it here.</em></p>
+        <div class="scrape-output" id="scrapeOutput"></div>
+      </div>
+
+      <!-- Step 2: Paste & Publish -->
+      <div class="step-block">
+        <span class="step-num">Step 2 — Publish</span>
+        <h3>Name it and share it</h3>
+        <p style="margin-bottom:20px">Paste the usernames the bookmarklet copied (one per line), give your list a name, and publish.</p>
+
+        <div class="form-group">
+          <label>List name</label>
+          <input type="text" id="listName" placeholder="e.g. Crypto Scam Ring, Reply Guy Spam...">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" id="listDesc" placeholder="Short description of what accounts are on this list">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="listCategory">
+            <option value="spam">Spam</option>
+            <option value="bots">Bots</option>
+            <option value="harassment">Harassment</option>
+            <option value="crypto">Crypto scams</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your name (optional)</label>
+          <input type="text" id="creatorName" placeholder="So people know who curated this">
+        </div>
+        <div class="form-group">
+          <label>Blocked accounts (one per line)</label>
+          <textarea id="accountsInput" placeholder="spambot001&#10;replyguy99&#10;cryptoscam_x&#10;fakegiveaway01&#10;&#10;Paste usernames — @ symbols and URLs are cleaned automatically"></textarea>
+          <div class="form-help" id="accountCount">0 valid accounts detected</div>
+        </div>
+        <button class="btn btn-primary" onclick="publishList()" id="publishBtn">Publish blocklist</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HOW IT WORKS SECTION ═══ -->
+  <div class="section" id="sec-how">
+    <div class="how-section">
+      <h2>How it works</h2>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-icon">📋</div>
+          <h3>Scrape</h3>
+          <p>Use the bookmarklet on your X blocked accounts page. It auto-scrolls and grabs every username.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-icon">📤</div>
+          <h3>Share</h3>
+          <p>Paste the accounts, name your list, and publish it. Your list is now live for the community.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-icon">🔍</div>
+          <h3>Browse</h3>
+          <p>Find lists by category — spam, bots, crypto scams, harassment. Pick the ones you want.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-icon">⚡</div>
+          <h3>Install</h3>
+          <p>One click generates a block script. Run it on X and every account on the list gets blocked automatically.</p>
+        </div>
+      </div>
+
+      <div class="step-block" style="margin-top:32px">
+        <h3>Is this legal?</h3>
+        <p>Yes. The bookmarklet reads data already displayed in your own browser — it doesn't access X's servers or API. Sharing blocklists is just sharing your preferences. The install script uses X's own interface to block accounts one by one, the same as doing it manually — just faster.</p>
+      </div>
+
+      <div class="step-block">
+        <h3>Will X ban me?</h3>
+        <p>The install script adds short delays between blocks to look like normal usage. That said, blocking hundreds of accounts quickly could theoretically flag automated behavior. We recommend running the script in batches if your list is very large (500+).</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ DETAIL VIEW ═══ -->
+<div class="container">
+  <div id="detailView">
+    <button class="back-link" onclick="closeDetail()">← Back to lists</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<!-- ═══ INSTALL MODAL ═══ -->
+<div class="modal-overlay" id="installModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeInstallModal()">×</button>
+    <h3>Install blocklist</h3>
+    <p>Copy the script below, then go to any page on x.com, open your browser console (F12 → Console), paste it, and press Enter.</p>
+    <div class="form-group">
+      <textarea id="installScript" readonly style="min-height:200px;font-size:11px;line-height:1.6;color:var(--green);background:#0a0f0a;border-color:#1a2e1a"></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="copyInstallScript()" id="copyScriptBtn">Copy script</button>
+    <p style="margin-top:12px;font-size:11px;color:var(--text3)">The script blocks each account with a short delay to mimic normal usage. For large lists (500+), it may take a few minutes.</p>
+  </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  out of mind · community blocklists for X · <a href="https://github.com/saltblued/outofmind" target="_blank">github</a>
+</footer>
+
+<script>
+// ═══════════════════════════════════════
+// SUPABASE INIT
+// ═══════════════════════════════════════
+const SUPABASE_URL = 'https://tgkbvwcsulqscoeirogp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRna2J2d2NzdWxxc2NvZWlyb2dwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwNjA1NTYsImV4cCI6MjA5MTYzNjU1Nn0.7YyPeGAOWUJxbsEpSRxcnzgnY0ANhPG6Y_18jx8Z_p4';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let allLists = [];
+let currentFilter = 'all';
+let currentSearch = '';
+
+// ═══════════════════════════════════════
+// NAV & TABS
+// ═══════════════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + tab).classList.add('active');
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+  document.getElementById('detailView').classList.remove('active');
+  document.getElementById('hero').style.display = tab === 'browse' ? '' : 'none';
+  if (tab === 'browse') loadLists();
+}
+
+function goHome() {
+  switchTab('browse');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════
+// BROWSE & FILTER
+// ═══════════════════════════════════════
+async function loadLists() {
+  const { data, error } = await supabase
+    .from('blocklists')
+    .select('*')
+    .order('follower_count', { ascending: false });
+
+  if (error) {
+    console.error('Load error:', error);
+    document.getElementById('listsContainer').innerHTML = '<div class="empty-state"><p>Failed to load lists. Check console.</p></div>';
+    return;
+  }
+
+  allLists = data || [];
+  renderLists();
+}
+
+function setFilter(cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
+  renderLists();
+}
+
+function filterLists() {
+  currentSearch = document.getElementById('searchInput').value.toLowerCase();
+  renderLists();
+}
+
+function renderLists() {
+  let filtered = allLists;
+  if (currentFilter !== 'all') filtered = filtered.filter(l => l.category === currentFilter);
+  if (currentSearch) filtered = filtered.filter(l =>
+    l.name.toLowerCase().includes(currentSearch) ||
+    (l.description || '').toLowerCase().includes(currentSearch)
+  );
+
+  const container = document.getElementById('listsContainer');
+
+  if (!filtered.length) {
+    container.innerHTML = `<div class="empty-state"><div class="big">🔍</div><p>${allLists.length ? 'No lists match your search' : 'No lists yet — be the first to share one!'}</p></div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(l => `
+    <div class="list-card" onclick="openDetail('${l.id}')">
+      <div class="list-card-top">
+        <div>
+          <h3>${esc(l.name)}</h3>
+          <div class="desc">${esc(l.description || '')}</div>
+          <div class="list-meta">
+            <span>⬛ ${l.account_count} accounts</span>
+            <span>👥 ${l.follower_count} followers</span>
+            ${l.creator_name ? `<span>by ${esc(l.creator_name)}</span>` : ''}
+          </div>
+        </div>
+        <span class="cat-tag cat-${l.category || 'general'}">${l.category || 'general'}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════
+// DETAIL VIEW
+// ═══════════════════════════════════════
+async function openDetail(id) {
+  const list = allLists.find(l => l.id === id);
+  if (!list) return;
+
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('hero').style.display = 'none';
+
+  const dv = document.getElementById('detailView');
+  dv.classList.add('active');
+
+  const accounts = list.accounts || [];
+
+  document.getElementById('detailContent').innerHTML = `
+    <h1 class="detail-title">${esc(list.name)}</h1>
+    <div class="detail-desc">${esc(list.description || '')}</div>
+    <div class="detail-stats">
+      <div class="stat-item">
+        <div class="stat-num">${list.account_count}</div>
+        <div class="stat-label">Accounts</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">${list.follower_count}</div>
+        <div class="stat-label">Followers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="cat-tag cat-${list.category || 'general'}">${list.category || 'general'}</span></div>
+        <div class="stat-label">Category</div>
+      </div>
+    </div>
+    <div class="detail-actions">
+      <button class="btn btn-green" onclick="showInstallModal('${id}')">⚡ Install this blocklist</button>
+      <button class="btn btn-ghost btn-sm" onclick="downloadList('${id}')">↓ Download .txt</button>
+    </div>
+    <div class="accounts-grid">
+      <h4>${accounts.length} blocked accounts</h4>
+      ${accounts.map(a => `<a class="acct-chip" href="https://x.com/${esc(a)}" target="_blank" rel="noopener">@${esc(a)}</a>`).join('')}
+    </div>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Increment follower count as a simple "view / interest" metric
+  // (In v2 this would be proper follow tracking)
+}
+
+function closeDetail() {
+  document.getElementById('detailView').classList.remove('active');
+  switchTab('browse');
+}
+
+// ═══════════════════════════════════════
+// INSTALL SCRIPT GENERATION
+// ═══════════════════════════════════════
+function showInstallModal(id) {
+  const list = allLists.find(l => l.id === id);
+  if (!list) return;
+
+  const accounts = list.accounts || [];
+  const script = generateBlockScript(accounts, list.name);
+
+  document.getElementById('installScript').value = script;
+  document.getElementById('installModal').classList.add('show');
+
+  // Increment follower count
+  supabase.rpc('increment_followers', { list_id: id }).catch(() => {
+    // Fallback: manual increment
+    supabase.from('blocklists').update({ follower_count: (list.follower_count || 0) + 1 }).eq('id', id);
+  });
+  list.follower_count = (list.follower_count || 0) + 1;
+}
+
+function generateBlockScript(accounts, name) {
+  return `// out of mind — "${name}" (${accounts.length} accounts)
+// Paste this in browser console on any x.com page
+
+(async () => {
+  const users = ${JSON.stringify(accounts)};
+  let blocked = 0, failed = 0;
+  const status = document.createElement('div');
+  Object.assign(status.style, {
+    position:'fixed', top:'0', left:'0', right:'0', zIndex:'99999',
+    background:'#000', color:'#fff', padding:'14px 20px',
+    fontFamily:'monospace', fontSize:'13px',
+    display:'flex', justifyContent:'space-between'
+  });
+  status.innerHTML = '<span id="oom-s">Starting...</span><span id="oom-c">0/' + users.length + '</span>';
+  document.body.appendChild(status);
+  const st = document.getElementById('oom-s');
+  const ct = document.getElementById('oom-c');
+
+  for (const user of users) {
+    try {
+      const ct0 = document.cookie.match(/ct0=([^;]+)/)?.[1];
+      if (!ct0) { st.textContent = 'Error: not logged in to X'; break; }
+      const r = await fetch('https://x.com/i/api/1.1/blocks/create.json', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
+          'x-csrf-token': ct0,
+          'x-twitter-auth-type': 'OAuth2Session'
+        },
+        body: 'screen_name=' + user,
+        credentials: 'include'
+      });
+      if (r.ok) blocked++; else failed++;
+    } catch { failed++; }
+    ct.textContent = (blocked + failed) + '/' + users.length;
+    st.textContent = 'Blocking @' + user + '...';
+    await new Promise(r => setTimeout(r, 500 + Math.random() * 300));
+  }
+  st.textContent = 'Done! ' + blocked + ' blocked' + (failed ? ', ' + failed + ' failed' : '');
+  status.style.background = '#166534';
+  setTimeout(() => status.remove(), 8000);
+})();`;
+}
+
+function closeInstallModal() {
+  document.getElementById('installModal').classList.remove('show');
+}
+
+function copyInstallScript() {
+  const ta = document.getElementById('installScript');
+  ta.select();
+  navigator.clipboard.writeText(ta.value).then(() => {
+    document.getElementById('copyScriptBtn').textContent = '✓ Copied!';
+    setTimeout(() => document.getElementById('copyScriptBtn').textContent = 'Copy script', 2000);
+    toast('Script copied — paste it in console on x.com');
+  });
+}
+
+function downloadList(id) {
+  const list = allLists.find(l => l.id === id);
+  if (!list) return;
+  const text = (list.accounts || []).join('\n');
+  const blob = new Blob([text], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = list.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Downloaded ' + (list.accounts || []).length + ' accounts');
+}
+
+// ═══════════════════════════════════════
+// PUBLISH BLOCKLIST
+// ═══════════════════════════════════════
+function parseInput(raw) {
+  return [...new Set(
+    raw.split(/[\n,]+/)
+       .map(u => u.trim().toLowerCase())
+       .map(u => u.replace(/^@/, ''))
+       .map(u => u.replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//, ''))
+       .map(u => u.split('/')[0].split('?')[0])
+       .filter(u => /^[a-z0-9_]{1,15}$/.test(u))
+  )];
+}
+
+// Live count
+document.getElementById('accountsInput').addEventListener('input', function() {
+  const parsed = parseInput(this.value);
+  document.getElementById('accountCount').textContent = parsed.length + ' valid account' + (parsed.length !== 1 ? 's' : '') + ' detected';
+});
+
+async function publishList() {
+  const name = document.getElementById('listName').value.trim();
+  const desc = document.getElementById('listDesc').value.trim();
+  const category = document.getElementById('listCategory').value;
+  const creator = document.getElementById('creatorName').value.trim();
+  const raw = document.getElementById('accountsInput').value;
+  const accounts = parseInput(raw);
+
+  if (!name) { toast('Give your list a name'); return; }
+  if (accounts.length < 1) { toast('Add at least 1 account'); return; }
+
+  const btn = document.getElementById('publishBtn');
+  btn.textContent = 'Publishing...';
+  btn.disabled = true;
+
+  const { data, error } = await supabase.from('blocklists').insert({
+    name,
+    description: desc,
+    category,
+    creator_name: creator || 'anonymous',
+    accounts,
+    account_count: accounts.length,
+    follower_count: 0
+  }).select();
+
+  btn.textContent = 'Publish blocklist';
+  btn.disabled = false;
+
+  if (error) {
+    console.error('Publish error:', error);
+    toast('Failed to publish — check console');
+    return;
+  }
+
+  // Clear form
+  document.getElementById('listName').value = '';
+  document.getElementById('listDesc').value = '';
+  document.getElementById('creatorName').value = '';
+  document.getElementById('accountsInput').value = '';
+  document.getElementById('accountCount').textContent = '0 valid accounts detected';
+
+  toast('Published! ' + accounts.length + ' accounts in "' + name + '"');
+
+  // Refresh and go to browse
+  await loadLists();
+  switchTab('browse');
+}
+
+// ═══════════════════════════════════════
+// BOOKMARKLET GENERATION
+// ═══════════════════════════════════════
+function generateBookmarklet() {
+  const code = `javascript:void((async()=>{if(!location.href.includes('/settings/blocked')){alert('Go to x.com/settings/blocked/all first');return}const b=document.createElement('div');Object.assign(b.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'%23000',color:'%23fff',padding:'14px 20px',fontFamily:'monospace',fontSize:'13px',display:'flex',justifyContent:'space-between'});b.innerHTML='<span id=bs>Scanning...</span><span id=bc>0</span>';document.body.appendChild(b);const f=new Set;let stale=0;function scrape(){document.querySelectorAll('[data-testid="UserCell"]').forEach(c=>{c.querySelectorAll('span').forEach(s=>{const t=s.textContent.trim();if(t.startsWith('@')&&/^@[A-Za-z0-9_]{1,15}$/.test(t))f.add(t.slice(1).toLowerCase())})});document.querySelectorAll('a[role="link"][href^="/"]').forEach(a=>{const m=a.getAttribute('href').match(/^\\/([A-Za-z0-9_]{1,15})$/);if(m){const u=m[1].toLowerCase();const skip=['home','explore','search','notifications','messages','settings','compose','i','tos','privacy'];if(!skip.includes(u))f.add(u)}})}scrape();for(let i=0;i<300;i++){window.scrollTo(0,document.body.scrollHeight);await new Promise(r=>setTimeout(r,700));const before=f.size;scrape();document.getElementById('bc').textContent=f.size;document.getElementById('bs').textContent='Scrolling...('+i+')';if(f.size===before){stale++;if(stale>=5)break}else stale=0}const list=[...f].join('\\n');await navigator.clipboard.writeText(list);document.getElementById('bs').textContent='Done! '+f.size+' accounts copied to clipboard';document.getElementById('bc').style.background='%2322c55e';document.getElementById('bc').style.padding='2px 10px';document.getElementById('bc').style.borderRadius='99px';document.getElementById('bc').style.color='%23000';document.getElementById('bc').textContent=f.size;setTimeout(()=>b.remove(),6000)})())`;
+  document.getElementById('bookmarkletLink').href = code;
+}
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+generateBookmarklet();
+loadLists();
+</script>
+</body>
+</html>
