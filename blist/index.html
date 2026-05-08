@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ok, bye — community blocklists for X (Twitter)</title>
+<meta name="description" content="Block, collect, and share blocklists for X. Remove eyesores and skip the nonsense. One-click mass blocking with community-powered blocklists.">
+<meta name="keywords" content="blocklist, X, Twitter, block, mass block, community blocklist, block followers, block reposters, spam blocker, harassment blocker">
+<meta name="author" content="ok, bye">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="waving_hand.svg" type="image/svg+xml">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ok-bye.com">
+<meta property="og:title" content="ok, bye — community blocklists for X">
+<meta property="og:description" content="Block, collect, and share blocklists for X. One-click mass blocking with community-powered lists. Remove eyesores and skip the nonsense.">
+<meta property="og:site_name" content="ok, bye">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ok, bye — community blocklists for X">
+<meta name="twitter:description" content="Block, collect, and share blocklists for X. One-click mass blocking. Remove eyesores, skip the nonsense.">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"ok, bye","url":"https://ok-bye.com","description":"Community-powered blocklists for X. Block, collect, and share blocklists to remove spam, bots, and harassment.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"ok, bye","url":"https://ok-bye.com"}}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<style>
+:root {
+  --bg: oklch(0.965 0.004 280);
+  --surface: oklch(0.997 0.002 280);
+  --surface2: oklch(0.945 0.004 280);
+  --surface3: oklch(0.915 0.005 280);
+  --border: oklch(0.878 0.007 282);
+  --border2: oklch(0.798 0.008 282);
+  --text: oklch(0.145 0.015 282);
+  --text2: oklch(0.390 0.015 282);
+  --text3: oklch(0.570 0.010 282);
+  --accent: #7C5CC4;
+  --purple: #7C5CC4;
+  --purple-bg: oklch(0.952 0.022 295);
+  --purple-light: oklch(0.920 0.038 295);
+  --red: oklch(0.52 0.175 22);
+  --red-bg: oklch(0.966 0.018 22);
+  --blue: oklch(0.48 0.135 240);
+  --blue-bg: oklch(0.966 0.014 240);
+  --amber: oklch(0.52 0.130 75);
+  --amber-bg: oklch(0.970 0.016 75);
+  --green: oklch(0.47 0.145 155);
+  --green-bg: oklch(0.966 0.016 155);
+  --pink: oklch(0.50 0.175 340);
+  --pink-bg: oklch(0.966 0.018 340);
+  --serif: 'Fraunces', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Bricolage Grotesque', -apple-system, sans-serif;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 1px 4px oklch(0.58 0.010 282 / 0.07), 0 1px 2px oklch(0.58 0.010 282 / 0.04);
+  --shadow: 0 4px 20px oklch(0.52 0.012 282 / 0.09), 0 1px 4px oklch(0.52 0.012 282 / 0.05);
+  --shadow-lg: 0 16px 52px oklch(0.48 0.015 282 / 0.13), 0 4px 12px oklch(0.48 0.015 282 / 0.06);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+::selection { background: rgba(124,92,196,0.35); }
+
+/* HEADER */
+header {
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.logo { display: flex; align-items: center; gap: 7px; cursor: pointer; text-decoration: none; }
+.logo .material-icons-outlined { font-size: 15px; color: var(--purple); }
+.logo-text { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--text); letter-spacing: -0.3px; }
+.nav-right { display: flex; align-items: center; gap: 4px; }
+.nav-link {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  font-family: var(--sans);
+  text-decoration: none;
+  line-height: 1;
+}
+.nav-link:hover { color: var(--text); background: var(--surface2); }
+.nav-cta {
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--text);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  font-family: var(--sans);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+}
+.nav-cta:hover { opacity: 0.85; }
+.kofi-link {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--purple);
+  background: var(--purple-bg);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: var(--sans);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1;
+}
+.kofi-link:hover { background: var(--purple-light); }
+.kofi-link .material-icons-outlined { font-size: 14px; }
+
+/* HERO */
+.hero {
+  padding: 92px 40px 60px;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: left;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(50px, 8vw, 88px);
+  font-weight: 300;
+  letter-spacing: -2.5px;
+  line-height: 1.0;
+  margin-bottom: 24px;
+}
+.hero h1 em { font-style: italic; color: var(--purple); font-weight: 300; }
+.hero p { font-size: 16px; color: var(--text2); max-width: 420px; line-height: 1.65; }
+.hero-actions { margin-top: 40px; }
+.btn-start {
+  padding: 14px 34px;
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  background: oklch(0.145 0.015 282);
+  color: oklch(0.97 0.005 282);
+  letter-spacing: -0.1px;
+}
+.btn-start:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* CONTAINER */
+.container { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+.section { display: none; padding-bottom: 48px; }
+.section.active { display: block; animation: fadeUp 0.28s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* CHOOSE */
+.choose-page { padding-top: 48px; padding-bottom: 40px; }
+.choose-page h2 { font-family: var(--serif); font-size: 26px; font-weight: 400; margin-bottom: 6px; letter-spacing: -0.5px; }
+.choose-page > p { color: var(--text3); font-size: 13px; margin-bottom: 40px; }
+.choose-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.choose-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.choose-card:hover { border-color: var(--purple); background: var(--purple-bg); box-shadow: var(--shadow-sm); }
+.choose-icon { width: 38px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+.choose-icon .material-icons-outlined { font-size: 20px; }
+.choose-card h3 { font-size: 14px; font-weight: 700; color: var(--text); }
+.choose-card p { font-size: 12px; color: var(--text2); line-height: 1.55; }
+
+/* BROWSE */
+.browse-wrapper { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 0; box-shadow: var(--shadow); }
+.browse-header h2 { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 16px; letter-spacing: -0.3px; }
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  margin-bottom: 12px;
+}
+.search-box:focus-within { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,92,196,0.15); }
+.search-box .material-icons-outlined { font-size: 18px; color: var(--text3); }
+.search-box input { flex: 1; background: transparent; border: none; color: var(--text); font-family: var(--sans); font-size: 13px; padding: 11px 0; outline: none; }
+.search-box input::placeholder { color: var(--text3); }
+.filter-row { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
+.chip {
+  padding: 5px 13px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: var(--sans);
+}
+.chip:hover { border-color: var(--border2); color: var(--text2); }
+.chip.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+.lists-scroll { max-height: 520px; overflow-y: auto; padding-right: 6px; }
+.lists-scroll::-webkit-scrollbar { width: 3px; }
+.lists-scroll::-webkit-scrollbar-track { background: transparent; }
+.lists-scroll::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+.lists-container { display: grid; gap: 6px; }
+
+/* LIST CARDS */
+.list-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  overflow: hidden;
+  max-width: 100%;
+}
+.list-card:hover { border-color: var(--border2); background: var(--surface); box-shadow: var(--shadow-sm); }
+.list-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; min-width: 0; }
+.list-card-top > div:first-child { min-width: 0; flex: 1; }
+.list-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; word-break: break-word; color: var(--text); }
+.list-card .desc { font-size: 12px; color: var(--text2); line-height: 1.55; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; word-break: break-word; }
+.list-meta { display: flex; gap: 14px; font-size: 11px; color: var(--text3); font-weight: 500; flex-wrap: wrap; font-family: var(--mono); }
+.list-meta span { display: flex; align-items: center; gap: 3px; }
+.cat-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+.cat-spam { background: var(--red-bg); color: var(--red); }
+.cat-bots { background: var(--blue-bg); color: var(--blue); }
+.cat-harassment { background: var(--amber-bg); color: var(--amber); }
+.cat-antis { background: var(--pink-bg); color: var(--pink); }
+.cat-general { background: var(--green-bg); color: var(--green); }
+.empty-state { text-align: center; padding: 60px 24px; color: var(--text3); }
+.empty-state .big { font-size: 36px; margin-bottom: 14px; }
+
+/* DETAIL */
+.detail-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 4px; }
+.detail-title { font-family: var(--serif); font-size: 28px; font-weight: 400; flex: 1; letter-spacing: -0.5px; }
+.detail-desc { font-size: 14px; color: var(--text2); line-height: 1.65; margin-bottom: 24px; }
+.detail-stats { display: flex; gap: 32px; margin-bottom: 24px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.stat-num { font-size: 24px; font-weight: 600; color: var(--text); font-family: var(--mono); }
+.stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; margin-top: 3px; font-family: var(--mono); }
+.detail-actions { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+.accounts-scroll { max-height: 240px; overflow-y: auto; padding-right: 4px; }
+.accounts-scroll::-webkit-scrollbar { width: 3px; }
+.accounts-scroll::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+.accounts-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+.accounts-grid h4 { width: 100%; font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; font-weight: 700; font-family: var(--mono); }
+.acct-chip { font-family: var(--mono); font-size: 11px; color: var(--text2); background: var(--surface); border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; transition: all 0.12s; text-decoration: none; }
+.acct-chip:hover { border-color: var(--border2); color: var(--text); }
+
+/* STEPS */
+.back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text3); font-size: 13px; font-weight: 500; cursor: pointer; margin: 24px 0; padding: 0; background: none; border: none; font-family: var(--sans); transition: color 0.15s; }
+.back-link:hover { color: var(--text2); }
+.create-section { margin-top: 32px; }
+.create-section h2 { font-family: var(--serif); font-size: 28px; font-weight: 400; margin-bottom: 8px; letter-spacing: -0.5px; }
+.create-section > p { color: var(--text2); font-size: 14px; margin-bottom: 32px; line-height: 1.6; }
+.step-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
+.step-num { font-size: 10px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; font-family: var(--mono); }
+.step-block h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.step-block p { font-size: 14px; color: var(--text2); line-height: 1.6; }
+.bookmarklet-drag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface2);
+  color: var(--text);
+  padding: 13px 22px;
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: grab;
+  margin: 16px 0;
+  user-select: none;
+  transition: all 0.12s;
+  text-decoration: none;
+  border: 1px dashed var(--border2);
+}
+.bookmarklet-drag:hover { border-color: var(--purple); background: var(--purple-bg); color: var(--purple); transform: translateY(-1px); }
+.bookmarklet-drag:active { cursor: grabbing; transform: scale(0.97); border-style: solid; }
+.bookmarklet-drag .drag-icon { display: flex; flex-direction: column; gap: 2px; opacity: 0.4; }
+.bookmarklet-drag .drag-icon span { display: block; width: 14px; height: 2px; background: currentColor; border-radius: 1px; }
+.bookmarklet-drag:hover .drag-icon { opacity: 0.7; }
+.drag-hint { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; color: var(--text2); line-height: 1.5; }
+.drag-hint .material-icons-outlined { font-size: 16px; color: var(--purple); flex-shrink: 0; }
+.step-images { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 16px; }
+.step-images figure { margin: 0; text-align: center; }
+.step-images img { width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.step-images figcaption { font-size: 11px; color: var(--text3); margin-top: 7px; font-weight: 500; }
+@media(max-width:500px) { .step-images { grid-template-columns: 1fr; } }
+
+/* FORMS */
+.form-group { margin-bottom: 18px; }
+.form-group label { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 7px; gap: 12px; }
+.form-group label .label-counter { font-weight: 500; color: var(--text3); font-size: 11px; font-family: var(--mono); }
+.form-group label .label-counter.warn { color: var(--amber); }
+.form-group label .label-counter.over { color: var(--red); }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,92,196,0.15); }
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B6B7A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.form-group textarea { font-family: var(--mono); font-size: 13px; min-height: 140px; max-height: 280px; resize: vertical; line-height: 1.75; }
+.form-help { font-size: 11px; color: var(--text3); margin-top: 5px; font-family: var(--mono); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:560px) { .form-row { grid-template-columns: 1fr; } }
+
+/* BUTTONS */
+.btn { padding: 10px 22px; border-radius: var(--radius-sm); font-family: var(--sans); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; border: none; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; line-height: 1; }
+.btn-primary { background: var(--purple); color: #fff; }
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-secondary { background: var(--surface); color: var(--text2); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--border2); color: var(--text); background: var(--surface2); }
+.btn-purple { background: var(--purple); color: #fff; }
+.btn-purple:hover { opacity: 0.88; }
+.btn-red-outline { color: var(--red); border: 1px solid var(--red-bg); background: var(--red-bg); padding: 10px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--sans); transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; line-height: 1; }
+.btn-red-outline:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* MODALS */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 300; display: none; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+.modal-overlay.show { display: flex; }
+.modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 560px; max-width: 92vw; max-height: 88vh; overflow-y: auto; animation: fadeUp 0.22s ease; box-shadow: var(--shadow-lg); }
+.modal-box h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 4px; letter-spacing: -0.3px; }
+.modal-box > p { color: var(--text2); font-size: 13px; margin-bottom: 20px; }
+.modal-close { float: right; background: var(--surface2); border: none; color: var(--text3); width: 30px; height: 30px; border-radius: 99px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.modal-close:hover { background: var(--surface3); color: var(--text); }
+.install-methods { display: flex; gap: 6px; margin-bottom: 18px; }
+.install-method-tab { flex: 1; padding: 10px; border-radius: var(--radius-sm); text-align: center; cursor: pointer; border: 1px solid var(--border); background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 13px; font-weight: 600; transition: all 0.15s; line-height: 1; }
+.install-method-tab.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+.install-method-tab:hover:not(.active) { border-color: var(--border2); color: var(--text); }
+.install-method-content { display: none; }
+.install-method-content.active { display: block; }
+.install-step { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+.install-step-num { background: var(--surface2); color: var(--text); width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; font-family: var(--mono); }
+.install-step-text { font-size: 13px; color: var(--text2); line-height: 1.55; }
+.install-step-text strong { color: var(--text); }
+
+/* SUCCESS MODAL */
+.success-content { text-align: center; padding: 16px 0; }
+.success-icon { font-size: 48px; margin-bottom: 14px; display: block; }
+.success-content h2 { font-family: var(--serif); font-size: 26px; font-weight: 400; margin-bottom: 10px; letter-spacing: -0.3px; }
+.success-content .cheeky { font-size: 13px; color: var(--text3); font-style: italic; margin-bottom: 22px; line-height: 1.6; }
+.copy-link-box { display: flex; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 4px 4px 4px 14px; margin-bottom: 18px; gap: 8px; }
+.copy-link-box input { flex: 1; background: transparent; border: none; color: var(--text3); font-family: var(--mono); font-size: 12px; outline: none; min-width: 0; }
+.copy-link-btn { padding: 9px 18px; border-radius: 4px; background: var(--purple); color: #fff; border: none; font-family: var(--sans); font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.12s; white-space: nowrap; }
+.copy-link-btn:hover { opacity: 0.85; }
+.success-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* HOW IT WORKS */
+.how-section { padding: 56px 0 48px; }
+.how-section h2 { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 6px; letter-spacing: -0.3px; }
+.how-subtitle { color: var(--text3); font-size: 13px; margin-bottom: 36px; }
+.how-grid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--border); }
+.how-card { padding: 28px 28px 28px 0; }
+.how-card:not(:first-child) { padding-left: 28px; border-left: 1px solid var(--border); }
+.how-num { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-bottom: 14px; display: block; }
+.how-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.how-card p { font-size: 13px; color: var(--text2); line-height: 1.55; }
+
+/* ADMIN */
+.admin-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 400; display: none; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+.admin-overlay.show { display: flex; }
+.admin-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px; width: 750px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); animation: fadeUp 0.22s ease; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.admin-table th { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text3); font-weight: 700; font-family: var(--mono); }
+.admin-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.admin-table tr:hover td { background: var(--surface2); }
+
+/* TOAST */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 11px 22px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; z-index: 500; transition: transform 0.25s ease; white-space: nowrap; box-shadow: var(--shadow-lg); }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* FOOTER */
+footer { text-align: center; padding: 40px 24px; font-size: 12px; color: var(--text3); border-top: 1px solid var(--border); }
+footer a { color: var(--text3); text-decoration: none; }
+footer a:hover { color: var(--text2); }
+
+/* RESPONSIVE */
+@media(max-width:700px) {
+  .choose-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; }
+  .how-card { padding: 20px 0; border-left: none !important; }
+  .how-card:not(:first-child) { border-top: 1px solid var(--border); }
+}
+@media(max-width:600px) {
+  header { padding: 13px 20px; }
+  .logo-text { font-size: 18px; }
+  .hero { padding: 56px 20px 44px; }
+  .container { padding: 0 20px; }
+  .detail-stats { gap: 16px; flex-wrap: wrap; }
+  .install-methods { flex-direction: column; }
+  .nav-link { display: none; }
+  .admin-panel { padding: 20px; }
+  .kofi-link { padding: 7px 11px; font-size: 11px; }
+  .browse-wrapper { padding: 18px; }
+  .step-block { padding: 20px; }
+}
+
+/* MICROINTERACTIONS & POLISH */
+html { scroll-behavior: smooth; }
+
+#sec-browse { padding-top: 44px; }
+
+/* Nav underline reveal */
+.nav-link { position: relative; overflow: hidden; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 5px; left: 14px; right: 14px;
+  height: 1px;
+  background: var(--text3);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.24s cubic-bezier(0.32,0.72,0,1);
+}
+.nav-link:hover::after { transform: scaleX(1); }
+
+/* Logo fade */
+.logo { transition: opacity 0.18s ease; }
+.logo:hover { opacity: 0.65; }
+
+/* Kofi lift */
+.kofi-link { transition: background 0.15s, transform 0.2s cubic-bezier(0.32,0.72,0,1); }
+.kofi-link:hover { transform: translateY(-2px); }
+
+/* Hero CTA press */
+.btn-start {
+  transition: opacity 0.15s,
+              transform 0.24s cubic-bezier(0.32,0.72,0,1),
+              box-shadow 0.24s cubic-bezier(0.32,0.72,0,1);
+}
+.btn-start:hover { box-shadow: 0 10px 32px oklch(0.18 0.020 282 / 0.26); }
+.btn-start:active { transform: scale(0.96) translateY(1px) !important; box-shadow: none !important; }
+
+/* Choose cards — lift + press */
+.choose-card {
+  transition: border-color 0.2s, background 0.2s,
+              transform 0.3s cubic-bezier(0.32,0.72,0,1),
+              box-shadow 0.3s cubic-bezier(0.32,0.72,0,1);
+}
+.choose-card:hover { transform: translateY(-5px); }
+.choose-card:active { transform: translateY(-2px) scale(0.99); }
+
+/* List card stagger entry + lift */
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.list-card {
+  animation: cardReveal 0.36s cubic-bezier(0.32,0.72,0,1) both;
+  transition: border-color 0.15s, background 0.18s,
+              transform 0.26s cubic-bezier(0.32,0.72,0,1),
+              box-shadow 0.26s cubic-bezier(0.32,0.72,0,1);
+}
+.list-card:hover { transform: translateY(-3px); }
+
+/* Search box lift on focus */
+.search-box {
+  transition: border-color 0.18s, box-shadow 0.18s,
+              transform 0.22s cubic-bezier(0.32,0.72,0,1);
+}
+.search-box:focus-within { transform: translateY(-1px); }
+
+/* Chip spring on press */
+.chip { transition: all 0.2s cubic-bezier(0.34,1.4,0.64,1); }
+.chip:active { transform: scale(0.92); }
+
+/* Primary / purple buttons */
+.btn-primary, .btn-purple {
+  transition: opacity 0.15s, transform 0.2s cubic-bezier(0.32,0.72,0,1), box-shadow 0.2s;
+}
+.btn-primary:hover, .btn-purple:hover { transform: translateY(-1px); box-shadow: 0 6px 18px oklch(0.50 0.18 295 / 0.28); }
+.btn-primary:active, .btn-purple:active { transform: scale(0.96) translateY(1px); opacity: 0.9; }
+
+/* Secondary button */
+.btn-secondary { transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.2s; }
+.btn-secondary:hover { transform: translateY(-1px); }
+.btn-secondary:active { transform: scale(0.97); }
+
+/* Back link slide left */
+.back-link { transition: color 0.15s, transform 0.22s cubic-bezier(0.32,0.72,0,1); }
+.back-link:hover { transform: translateX(-4px); }
+
+/* How-it-works hover — dim siblings, color number */
+.how-num { transition: color 0.22s ease; }
+.how-card h3 { transition: color 0.22s ease; }
+.how-grid:hover .how-card { opacity: 0.55; transition: opacity 0.2s ease; }
+.how-grid:hover .how-card:hover { opacity: 1; }
+.how-card:hover .how-num { color: var(--purple); }
+
+/* Account chips */
+.acct-chip { transition: border-color 0.12s, color 0.12s, transform 0.18s cubic-bezier(0.32,0.72,0,1); }
+.acct-chip:hover { transform: translateY(-2px); }
+
+/* Bookmarklet drag */
+.bookmarklet-drag {
+  transition: border-color 0.18s, background 0.18s, color 0.18s,
+              transform 0.26s cubic-bezier(0.32,0.72,0,1), box-shadow 0.26s;
+}
+.bookmarklet-drag:hover { box-shadow: 0 6px 20px oklch(0.55 0.012 282 / 0.12); }
+
+/* Modal entry */
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.975); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-box { animation: modalIn 0.3s cubic-bezier(0.32,0.72,0,1) both; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MK1XWZD0D4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MK1XWZD0D4');
+</script>
+</head>
+<body>
+
+<header>
+  <div class="logo" id="logoBtn"><span class="logo-text">ok, bye</span><span class="material-icons-outlined">waving_hand</span></div>
+  <div class="nav-right">
+    <button class="nav-link" id="navHow">How it works</button>
+    <a class="kofi-link" href="https://ko-fi.com/saltblued" target="_blank" rel="noopener"><span class="material-icons-outlined">favorite</span> Tip</a>
+  </div>
+</header>
+
+<div class="hero" id="hero">
+  <h1>Wave goodbye<br>to the <em>noise.</em></h1>
+  <p>Block, collect, and share blocklists. Remove eyesores and skip the nonsense.</p>
+  <div class="hero-actions"><button class="btn-start" id="startBtn">Get started</button></div>
+</div>
+
+<div class="container">
+  <!-- CHOOSE -->
+  <div class="section" id="sec-choose"><div class="choose-page"><button class="back-link" id="backChoose">&#8592; Back</button><h2>Start here.</h2><p>Pick what you want to do.</p><div class="choose-grid">
+    <div class="choose-card" id="choiceShare"><div class="choose-icon" style="background:var(--purple-bg)"><span class="material-icons-outlined" style="color:var(--purple)">upload</span></div><h3>Share your blocklist</h3><p>Export your blocked accounts and publish them for others.</p></div>
+    <div class="choose-card" id="choiceBlock"><div class="choose-icon" style="background:var(--red-bg)"><span class="material-icons-outlined" style="color:var(--red)">block</span></div><h3>Block followers or reposters</h3><p>Collect and block everyone in one click.</p></div>
+    <div class="choose-card" id="choiceCollect"><div class="choose-icon" style="background:var(--blue-bg)"><span class="material-icons-outlined" style="color:var(--blue)">playlist_add</span></div><h3>Collect to create a list</h3><p>Collect accounts and publish without blocking.</p></div>
+  </div></div></div>
+
+  <!-- BROWSE -->
+  <div class="section active" id="sec-browse">
+    <div class="browse-wrapper">
+      <div class="browse-header"><h2>Community blocklists</h2></div>
+      <div class="search-box"><span class="material-icons-outlined">search</span><input type="text" id="searchInput" placeholder="Search by list name or creator..."></div>
+      <div class="filter-row" id="filterRow">
+        <button class="chip active" data-cat="all">All</button>
+        <button class="chip" data-cat="spam">Spam</button>
+        <button class="chip" data-cat="bots">Bots</button>
+        <button class="chip" data-cat="harassment">Harassment</button>
+        <button class="chip" data-cat="antis">Antis</button>
+        <button class="chip" data-cat="general">General</button>
+      </div>
+      <div class="lists-scroll" style="max-height:380px"><div class="lists-container" id="listsContainer"><div class="empty-state"><div class="big">⏳</div><p>Loading lists...</p></div></div></div>
+    </div>
+  </div>
+
+  <!-- DETAIL -->
+  <div class="section" id="sec-detail">
+    <button class="back-link" id="backBtn">&#8592; Back to lists</button>
+    <div id="detailContent"></div>
+  </div>
+
+  <!-- FLOW 1: SHARE -->
+  <div class="section" id="sec-share"><div class="create-section"><button class="back-link" id="backShare">&#8592; Back</button><h2>Share your blocklist</h2><p>Export your blocked accounts from X and publish them as a community list.</p><div class="step-block"><span class="step-num">Step 01 — Export</span><h3>Grab your block list from X</h3><p style="margin-bottom:16px">Drag the button to your bookmarks bar. Visit <strong style="color:var(--text)">x.com/settings/blocked/all</strong> and click it.</p><a class="bookmarklet-drag" id="shareBookmarklet" href="javascript:void(0)"><span class="drag-icon"><span></span><span></span><span></span></span> Collect blocked accounts</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag to your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click here.</span></div></div><div class="step-block"><span class="step-num">Step 02 — Publish</span><h3>Name it and share it</h3><p style="margin-bottom:20px">Paste the usernames, fill in the details, and publish.</p>
+  <div class="form-row"><div class="form-group"><label>List name</label><input type="text" id="shareName" placeholder="e.g. My spam blocklist" maxlength="100"></div><div class="form-group"><label>Created by</label><input type="text" id="shareCreator" placeholder="Who curated this"></div></div>
+  <div class="form-group"><label>Description <span class="label-counter" id="shareDescCounter">0 / 200</span></label><textarea id="shareDesc" placeholder="What kind of accounts are on this list?" maxlength="200" rows="5" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5"></textarea></div>
+  <div class="form-group"><label>Category</label><select id="shareCat"><option value="spam">Spam</option><option value="bots">Bots</option><option value="harassment">Harassment</option><option value="antis">Antis</option><option value="general">General</option></select></div>
+  <div class="form-group"><label>Accounts <span style="font-weight:400;color:var(--text3)">(one per line)</span></label><textarea id="shareAccounts" placeholder="Paste usernames from your clipboard"></textarea><div class="form-help" id="shareCount">0 valid accounts detected</div></div><button class="btn btn-primary" id="sharePublishBtn">Publish blocklist</button></div></div></div>
+
+  <!-- FLOW 2: BLOCK -->
+  <div class="section" id="sec-block"><div class="create-section"><button class="back-link" id="backBlock">&#8592; Back</button><h2>Block followers or reposters</h2><p>One bookmarklet does everything. Set it up once, use it whenever.</p><div class="step-block"><span class="step-num">Step 01 — Add the bookmarklet</span><h3>Drag this to your bookmarks bar</h3><p style="margin-bottom:16px">Once it's in your bookmarks bar, you can reuse it anytime. Make sure your bookmarks bar is visible.</p><a class="bookmarklet-drag" id="blockBookmarklet" href="javascript:void(0)"><span class="drag-icon"><span></span><span></span><span></span></span> Collect &amp; Block</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag the button above into your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click it here — drag it.</span></div></div><div class="step-block"><span class="step-num">Step 02 — Go to X and click the bookmark</span><h3>Open a follower or reposter page</h3><p style="margin-bottom:16px">Go to the account you want to block and open their <strong style="color:var(--text)">follower page</strong> <span style="color:var(--text3)">(x.com/username/followers)</span>. Or open any post and tap <strong style="color:var(--text)">Reposts</strong> to view reposters.</p><div class="step-images"><figure><img src="follower-page.webp" alt="X follower page showing a list of followers" loading="lazy"><figcaption>Follower page — click "Followers" on a profile</figcaption></figure><figure><img src="reblog_page.webp" alt="X repost page showing who reposted" loading="lazy"><figcaption>Repost page — tap the repost icon on any post</figcaption></figure></div><p style="margin-bottom:16px">Once the list of people is showing, click <strong style="color:var(--text)">"Collect & Block"</strong> in your bookmarks bar. It will scroll through the page and block automatically. When done, it copies the usernames to your clipboard.</p><div style="padding:14px 16px;background:var(--amber-bg);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;line-height:1.6"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:4px;color:var(--amber)"><span class="material-icons-outlined" style="font-size:18px">info</span> Good to know</strong><span style="color:var(--text2)">X doesn't always load every follower — the bookmarklet collects what's visible on the page. Repost pages tend to load faster and fully.</span></div></div><div class="step-block"><span class="step-num">Step 03 — Publish (optional)</span><h3>Share the list with the community</h3><p style="margin-bottom:20px">After blocking, the accounts are on your clipboard. Paste them below to create a public blocklist others can install.</p>
+  <div class="form-row"><div class="form-group"><label>List name</label><input type="text" id="blockName" placeholder="e.g. @badaccount followers" maxlength="100"></div><div class="form-group"><label>Created by</label><input type="text" id="blockCreator" placeholder="Who curated this"></div></div>
+  <div class="form-group"><label>Description <span class="label-counter" id="blockDescCounter">0 / 200</span></label><textarea id="blockDesc" placeholder="What kind of accounts?" maxlength="200" rows="5" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5"></textarea></div>
+  <div class="form-group"><label>Category</label><select id="blockCat"><option value="antis">Antis</option><option value="spam">Spam</option><option value="bots">Bots</option><option value="harassment">Harassment</option><option value="general">General</option></select></div>
+  <div class="form-group"><label>Accounts <span style="font-weight:400;color:var(--text3)">(one per line)</span></label><textarea id="blockAccounts" placeholder="Paste from clipboard"></textarea><div class="form-help" id="blockCount">0 valid accounts detected</div></div><button class="btn btn-primary" id="blockPublishBtn">Publish blocklist</button></div></div></div>
+
+  <!-- FLOW 3: COLLECT -->
+  <div class="section" id="sec-collect"><div class="create-section"><button class="back-link" id="backCollect">&#8592; Back</button><h2>Collect to create a new list</h2><p>Collect followers or reposters without blocking — publish for others.</p><div class="step-block"><span class="step-num">Step 01 — Add the bookmarklet</span><h3>Drag this to your bookmarks bar</h3><p style="margin-bottom:16px">Once it's in your bookmarks bar, you can reuse it anytime. Make sure your bookmarks bar is visible.</p><a class="bookmarklet-drag" id="collectBookmarklet" href="javascript:void(0)"><span class="drag-icon"><span></span><span></span><span></span></span> Collect accounts</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag the button above into your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click it here — drag it.</span></div></div><div class="step-block"><span class="step-num">Step 02 — Go to X and click the bookmark</span><h3>Open a follower or reposter page</h3><p style="margin-bottom:16px">Go to the account and open their <strong style="color:var(--text)">follower page</strong> <span style="color:var(--text3)">(x.com/username/followers)</span>. Or open any post and tap <strong style="color:var(--text)">Reposts</strong> to view reposters.</p><div class="step-images"><figure><img src="follower-page.webp" alt="X follower page showing a list of followers" loading="lazy"><figcaption>Follower page — click "Followers" on a profile</figcaption></figure><figure><img src="reblog_page.webp" alt="X repost page showing who reposted" loading="lazy"><figcaption>Repost page — tap the repost icon on any post</figcaption></figure></div><p style="margin-bottom:16px">Once the list is showing, click <strong style="color:var(--text)">"Collect accounts"</strong> in your bookmarks bar. It will scroll and collect automatically. When done, it copies the usernames to your clipboard.</p><div style="padding:14px 16px;background:var(--amber-bg);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;line-height:1.6"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:4px;color:var(--amber)"><span class="material-icons-outlined" style="font-size:18px">info</span> Good to know</strong><span style="color:var(--text2)">X doesn't always load every follower — the bookmarklet collects what's visible on the page. Repost pages tend to load faster and fully.</span></div></div><div class="step-block"><span class="step-num">Step 03 — Publish</span><h3>Create the blocklist</h3><p style="margin-bottom:20px">Paste the collected usernames and publish.</p>
+  <div class="form-row"><div class="form-group"><label>List name</label><input type="text" id="collectName" placeholder="e.g. @account followers" maxlength="100"></div><div class="form-group"><label>Created by</label><input type="text" id="collectCreator" placeholder="Who curated this"></div></div>
+  <div class="form-group"><label>Description <span class="label-counter" id="collectDescCounter">0 / 200</span></label><textarea id="collectDesc" placeholder="What kind of accounts?" maxlength="200" rows="5" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5"></textarea></div>
+  <div class="form-group"><label>Category</label><select id="collectCat"><option value="antis">Antis</option><option value="spam">Spam</option><option value="bots">Bots</option><option value="harassment">Harassment</option><option value="general">General</option></select></div>
+  <div class="form-group"><label>Accounts <span style="font-weight:400;color:var(--text3)">(one per line)</span></label><textarea id="collectAccounts" placeholder="Paste from clipboard"></textarea><div class="form-help" id="collectCount">0 valid accounts detected</div></div><button class="btn btn-primary" id="collectPublishBtn">Publish blocklist</button></div></div></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="container" id="howWrapper"><div class="how-section" id="howSection">
+  <h2>How it works</h2>
+  <p class="how-subtitle">Simple tools to clean up your timeline</p>
+  <div class="how-grid">
+    <div class="how-card"><span class="how-num">01</span><h3>Block instantly</h3><p>One bookmarklet. Visit a followers or reposters page. Click — everyone gets blocked.</p></div>
+    <div class="how-card"><span class="how-num">02</span><h3>Create lists</h3><p>Collect accounts and publish them as a blocklist for the community.</p></div>
+    <div class="how-card"><span class="how-num">03</span><h3>Install lists</h3><p>Browse community blocklists. Install any list with a bookmarklet.</p></div>
+  </div>
+</div></div>
+
+<!-- INSTALL MODAL -->
+<div class="modal-overlay" id="installModal"><div class="modal-box"><button class="modal-close" id="closeModalBtn">&#10005;</button><h3>Install blocklist</h3><p id="installListName"></p><div class="install-methods"><button class="install-method-tab active" data-method="bookmarklet">Bookmarklet (easy)</button><button class="install-method-tab" data-method="console">Console (advanced)</button></div><div class="install-method-content active" id="method-bookmarklet"><div class="install-step"><div class="install-step-num">1</div><div class="install-step-text">Drag to your <strong>bookmarks bar</strong>:</div></div><div style="text-align:center;margin-bottom:20px"><a class="bookmarklet-drag" id="installBookmarklet" href="javascript:void(0)" style="font-size:13px;padding:11px 22px"><span class="drag-icon"><span></span><span></span><span></span></span> Block this list</a></div><div class="install-step"><div class="install-step-num">2</div><div class="install-step-text">Go to <strong>x.com</strong> (logged in)</div></div><div class="install-step"><div class="install-step-num">3</div><div class="install-step-text">Click the bookmark.</div></div></div><div class="install-method-content" id="method-console"><div class="form-group" style="margin-top:4px"><textarea id="installScript" readonly style="min-height:160px;font-size:11px;line-height:1.6;color:var(--purple);background:var(--purple-bg);border-color:var(--purple-light)"></textarea></div><button class="btn btn-primary" id="copyScriptBtn">Copy script</button></div></div></div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal"><div class="modal-box"><div class="success-content">
+  <span class="success-icon">🎉</span>
+  <h2>You're all set!</h2>
+  <p class="cheeky">Your blocklist is live. Now go stream <em>Swim</em> by BTS — your page is open, might as well enjoy it. 🫧</p>
+  <div class="copy-link-box"><input type="text" id="successLink" readonly value=""><button class="copy-link-btn" id="successCopy">Copy</button></div>
+  <div class="success-actions">
+    <button class="btn btn-primary" id="successView">Go to list</button>
+    <a class="btn btn-secondary" id="successShareX" href="#" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Share on X</a>
+  </div>
+</div></div></div>
+
+<!-- REPORT MODAL -->
+<div class="modal-overlay" id="reportModal"><div class="modal-box" style="width:440px">
+  <button class="modal-close" id="closeReportBtn">&#10005;</button>
+  <h3>Report this list</h3>
+  <p>Let us know what's wrong. We'll review it.</p>
+  <div class="form-group"><label>Reason</label><textarea id="reportReason" placeholder="e.g. Contains people who don't belong on this list, misleading category, spam..." rows="4" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5;min-height:100px"></textarea></div>
+  <div style="display:flex;gap:10px;justify-content:flex-end">
+    <button class="btn btn-secondary" id="reportCancelBtn">Cancel</button>
+    <button class="btn btn-primary" id="reportSubmitBtn">Submit report</button>
+  </div>
+</div></div>
+
+<!-- ADMIN -->
+<div class="admin-overlay" id="adminOverlay"><div class="admin-panel"><button class="modal-close" id="closeAdminBtn" style="float:right">&#10005;</button><div id="adminContent"><div style="max-width:320px;margin:40px auto;text-align:center"><h3 style="font-family:var(--serif);font-size:20px;margin-bottom:16px">Admin</h3><div class="form-group"><label>Password</label><input type="password" id="adminPw" placeholder="Enter admin password"></div><button class="btn btn-primary" id="adminLoginBtn" style="width:100%">Log in</button></div></div></div></div>
+
+<div class="toast" id="toast"></div>
+<footer>ok, bye <span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">waving_hand</span> <span style="margin:0 4px">·</span> <a href="#" id="adminLink" style="opacity:0.3">admin</a></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+var db=null,allLists=[],currentFilter='all',isAdmin=false,ADMIN_HASH='3ac79ba4fefecd1fa3092412885d8b80add2e5a8e4db76fe9cac5c599c8532d3',lastPublish=0,lastPublishedId=null;
+async function sha256(s){var buf=new TextEncoder().encode(s);var h=await crypto.subtle.digest('SHA-256',buf);return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+try{db=supabase.createClient('https://tgkbvwcsulqscoeirogp.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRna2J2d2NzdWxxc2NvZWlyb2dwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwNjA1NTYsImV4cCI6MjA5MTYzNjU1Nn0.7YyPeGAOWUJxbsEpSRxcnzgnY0ANhPG6Y_18jx8Z_p4');}catch(e){console.error(e);}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show')},3000);}
+function parseInput(r){var s={},o=[];r.split(/[\n,]+/).forEach(function(l){var u=l.trim().toLowerCase().replace(/^@/,'').replace(/^https?:\/\/(www\.)?(twitter|x)\.com\//,'');u=u.split('/')[0].split('?')[0];if(/^[a-z0-9_]{1,15}$/.test(u)&&!s[u]){s[u]=true;o.push(u);}});return o;}
+
+// Click outside to close any modal
+document.querySelectorAll('.modal-overlay,.admin-overlay').forEach(function(overlay){overlay.addEventListener('click',function(e){if(e.target===overlay)overlay.classList.remove('show');});});
+
+var ALL_SECTIONS=['sec-browse','sec-choose','sec-block','sec-collect','sec-share','sec-detail'];
+function hideAll(){ALL_SECTIONS.forEach(function(id){document.getElementById(id).classList.remove('active');});}
+function showHome(){hideAll();document.getElementById('sec-browse').classList.add('active');document.getElementById('hero').style.display='';document.getElementById('howWrapper').style.display='';loadLists();}
+function showChoose(){hideAll();document.getElementById('sec-choose').classList.add('active');document.getElementById('hero').style.display='none';document.getElementById('howWrapper').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
+function showSection(id){hideAll();document.getElementById(id).classList.add('active');document.getElementById('hero').style.display='none';document.getElementById('howWrapper').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
+
+document.getElementById('logoBtn').onclick=function(){showHome();window.scrollTo({top:0,behavior:'smooth'});};
+document.getElementById('startBtn').onclick=function(){showChoose();};
+document.getElementById('navHow').onclick=function(){showHome();setTimeout(function(){document.getElementById('howSection').scrollIntoView({behavior:'smooth'});},100);};
+document.getElementById('choiceShare').onclick=function(){showSection('sec-share');};
+document.getElementById('choiceBlock').onclick=function(){showSection('sec-block');};
+document.getElementById('choiceCollect').onclick=function(){showSection('sec-collect');};
+document.getElementById('backChoose').onclick=function(){showHome();window.scrollTo({top:0,behavior:'smooth'});};
+document.getElementById('backShare').onclick=function(){showChoose();};
+document.getElementById('backBlock').onclick=function(){showChoose();};
+document.getElementById('backCollect').onclick=function(){showChoose();};
+document.getElementById('backBtn').onclick=function(){showHome();window.scrollTo({top:0,behavior:'smooth'});};
+document.getElementById('successView').onclick=function(){document.getElementById('successModal').classList.remove('show');if(lastPublishedId){openDetail(lastPublishedId);}};
+document.getElementById('successCopy').onclick=function(){var inp=document.getElementById('successLink');inp.select();navigator.clipboard.writeText(inp.value).then(function(){document.getElementById('successCopy').textContent='Copied!';setTimeout(function(){document.getElementById('successCopy').textContent='Copy';},2000);});};
+document.getElementById('closeModalBtn').onclick=function(){document.getElementById('installModal').classList.remove('show');};
+document.getElementById('copyScriptBtn').onclick=function(){var ta=document.getElementById('installScript');ta.select();navigator.clipboard.writeText(ta.value).then(function(){document.getElementById('copyScriptBtn').textContent='Copied!';setTimeout(function(){document.getElementById('copyScriptBtn').textContent='Copy script';},2000);toast('Script copied');});};
+document.getElementById('searchInput').oninput=function(){renderLists();};
+document.getElementById('filterRow').onclick=function(e){var c=e.target.closest('.chip');if(!c)return;currentFilter=c.dataset.cat;document.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('active',x.dataset.cat===currentFilter);});renderLists();};
+document.querySelector('.install-methods').onclick=function(e){var t=e.target.closest('.install-method-tab');if(!t)return;document.querySelectorAll('.install-method-tab').forEach(function(x){x.classList.remove('active');});document.querySelectorAll('.install-method-content').forEach(function(x){x.classList.remove('active');});t.classList.add('active');document.getElementById('method-'+t.dataset.method).classList.add('active');};
+['block','collect','share'].forEach(function(f){
+  document.getElementById(f+'Accounts').oninput=function(){var n=parseInput(this.value).length;document.getElementById(f+'Count').textContent=n+' valid account'+(n!==1?'s':'')+' detected';};
+  document.getElementById(f+'Desc').oninput=function(){
+    var len=this.value.length,max=200,el=document.getElementById(f+'DescCounter');
+    el.textContent=len+' / '+max;
+    el.className='label-counter'+(len>180&&len<=max?' warn':len>max?' over':'');
+    if(len>max)this.value=this.value.slice(0,max);
+  };
+});
+document.getElementById('blockPublishBtn').onclick=function(){publish('block');};
+document.getElementById('collectPublishBtn').onclick=function(){publish('collect');};
+document.getElementById('sharePublishBtn').onclick=function(){publish('share');};
+
+// Bookmarklets — encodeURI for escaping, batch blocking (3 concurrent) for speed
+function makeCollectScript(){
+var code=`(async()=>{var b=document.createElement('div');Object.assign(b.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});b.innerHTML='<span id=bs>Collecting...</span><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:99px\">0</span>';document.body.appendChild(b);var me='';try{var ml=document.querySelector('a[data-testid=\"AppTabBar_Profile_Link\"]');if(ml)me=ml.getAttribute('href').replace('/','').toLowerCase();}catch(e){}var f=new Set(),stale=0;function scan(){document.querySelectorAll('[data-testid=\"UserCell\"]').forEach(function(c){var a=c.querySelector('a[role=\"link\"]');if(a&&a.getAttribute('href')){var m=a.getAttribute('href').match(/^\\/([A-Za-z0-9_]{1,15})$/);if(m){var u=m[1].toLowerCase();if(u!==me&&['home','explore','search','notifications','messages','settings','compose','i'].indexOf(u)===-1)f.add(u)}}})}scan();for(var i=0;i<500;i++){window.scrollTo(0,document.body.scrollHeight);await new Promise(function(r){setTimeout(r,250)});var before=f.size;scan();document.getElementById('bc').textContent=f.size;document.getElementById('bs').textContent='Scrolling... '+f.size+' found';if(f.size===before){stale++;if(stale>=6)break}else{stale=0}}var list=Array.from(f).join(String.fromCharCode(10));await navigator.clipboard.writeText(list);document.getElementById('bs').textContent='Done! '+f.size+' accounts copied';document.getElementById('bc').style.cssText='background:#7C5CC4;padding:2px 10px;border-radius:99px;color:#fff';document.getElementById('bc').textContent=f.size;setTimeout(function(){b.style.transition='opacity .4s';b.style.opacity='0';setTimeout(function(){b.remove()},500)},5000)})()`;
+return 'javascript:void('+encodeURI(code)+')';}
+function makeCollectAndBlockScript(){
+var code=`(async()=>{var b=document.createElement('div');Object.assign(b.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});b.innerHTML='<span id=bs>Collecting...</span><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:99px\">0</span>';document.body.appendChild(b);var me='';try{var ml=document.querySelector('a[data-testid=\"AppTabBar_Profile_Link\"]');if(ml)me=ml.getAttribute('href').replace('/','').toLowerCase();}catch(e){}var f=new Set(),stale=0;function scan(){document.querySelectorAll('[data-testid=\"UserCell\"]').forEach(function(c){var a=c.querySelector('a[role=\"link\"]');if(a&&a.getAttribute('href')){var m=a.getAttribute('href').match(/^\\/([A-Za-z0-9_]{1,15})$/);if(m){var u=m[1].toLowerCase();if(u!==me&&['home','explore','search','notifications','messages','settings','compose','i'].indexOf(u)===-1)f.add(u)}}})}scan();for(var i=0;i<500;i++){window.scrollTo(0,document.body.scrollHeight);await new Promise(function(r){setTimeout(r,250)});var before=f.size;scan();document.getElementById('bc').textContent=f.size;document.getElementById('bs').textContent='Scrolling... '+f.size+' found';if(f.size===before){stale++;if(stale>=6)break}else{stale=0}}var users=Array.from(f);document.getElementById('bs').textContent='Blocking '+users.length+'...';document.getElementById('bc').textContent='0/'+users.length;var blocked=0,failed=0,done=0;async function blockOne(user){try{var ct0=document.cookie.match(/ct0=([^;]+)/);if(!ct0)return;ct0=ct0[1];var r=await fetch('https://x.com/i/api/1.1/blocks/create.json',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','authorization':'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA','x-csrf-token':ct0,'x-twitter-auth-type':'OAuth2Session'},body:'screen_name='+user,credentials:'include'});if(r.ok)blocked++;else failed++}catch(e){failed++}}for(var j=0;j<users.length;j+=3){var batch=users.slice(j,j+3);await Promise.all(batch.map(function(u){return blockOne(u)}));done+=batch.length;document.getElementById('bc').textContent=done+'/'+users.length;document.getElementById('bs').textContent='Blocking... '+done+'/'+users.length;await new Promise(function(r){setTimeout(r,150+Math.random()*100)})}await navigator.clipboard.writeText(users.join(String.fromCharCode(10)));document.getElementById('bs').textContent='Done! '+blocked+' blocked'+(failed?', '+failed+' failed':'')+' — copied';b.style.background='#7C5CC4';setTimeout(function(){b.style.transition='opacity .4s';b.style.opacity='0';setTimeout(function(){b.remove()},500)},8000)})()`;
+return 'javascript:void('+encodeURI(code)+')';}
+function makeInstallBookmarklet(a){
+var code=`(async()=>{var users=${JSON.stringify(a)};var blocked=0,failed=0,done=0;var bar=document.createElement('div');Object.assign(bar.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});bar.innerHTML='<span id=bs>Starting...</span><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:99px\">0/'+users.length+'</span>';document.body.appendChild(bar);async function blockOne(user){try{var ct0=document.cookie.match(/ct0=([^;]+)/);if(!ct0)return;ct0=ct0[1];var r=await fetch('https://x.com/i/api/1.1/blocks/create.json',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','authorization':'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA','x-csrf-token':ct0,'x-twitter-auth-type':'OAuth2Session'},body:'screen_name='+user,credentials:'include'});if(r.ok)blocked++;else failed++}catch(e){failed++}}for(var j=0;j<users.length;j+=3){var batch=users.slice(j,j+3);await Promise.all(batch.map(function(u){return blockOne(u)}));done+=batch.length;document.getElementById('bc').textContent=done+'/'+users.length;document.getElementById('bs').textContent='Blocking... '+done+'/'+users.length;await new Promise(function(r){setTimeout(r,150+Math.random()*100)})}document.getElementById('bs').textContent='Done! '+blocked+' blocked'+(failed?', '+failed+' failed':'');bar.style.background='#7C5CC4';setTimeout(function(){bar.style.transition='opacity .4s';bar.style.opacity='0';setTimeout(function(){bar.remove()},500)},6000)})()`;
+return 'javascript:void('+encodeURI(code)+')';}
+function makeBlockScript(a){return '// ok, bye — block '+a.length+'\n(async()=>{\nconst u='+JSON.stringify(a)+';let b=0,f=0;const bar=document.createElement("div");Object.assign(bar.style,{position:"fixed",top:0,left:0,right:0,zIndex:99999,background:"#1A1A18",color:"#fff",padding:"14px 20px",fontFamily:"system-ui",fontSize:"13px",display:"flex",justifyContent:"space-between"});bar.innerHTML=\'<span id=s>Starting...</span><span id=c>0/\'+u.length+\'</span>\';document.body.appendChild(bar);for(const x of u){try{const ct0=document.cookie.match(/ct0=([^;]+)/)?.[1];if(!ct0){document.getElementById("s").textContent="Not logged in";break}const r=await fetch("https://x.com/i/api/1.1/blocks/create.json",{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded","authorization":"Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA","x-csrf-token":ct0,"x-twitter-auth-type":"OAuth2Session"},body:"screen_name="+x,credentials:"include"});if(r.ok)b++;else f++}catch{f++}document.getElementById("c").textContent=(b+f)+"/"+u.length;document.getElementById("s").textContent="Blocking @"+x+"...";await new Promise(r=>setTimeout(r,200+Math.random()*150))}document.getElementById("s").textContent="Done! "+b+" blocked"+(f?", "+f+" failed":"");bar.style.background="#7C5CC4";setTimeout(()=>bar.remove(),8000)})();';}
+
+document.getElementById('blockBookmarklet').href=makeCollectAndBlockScript();
+document.getElementById('collectBookmarklet').href=makeCollectScript();
+document.getElementById('shareBookmarklet').href=makeCollectScript();
+
+// Load & render
+async function loadLists(){if(!db){document.getElementById('listsContainer').innerHTML='<div class="empty-state"><div class="big">⚠️</div><p>Database not connected</p></div>';return;}try{var r=await db.from('blocklists').select('*').order('follower_count',{ascending:false});if(r.error)throw r.error;allLists=r.data||[];renderLists();}catch(e){console.error(e);document.getElementById('listsContainer').innerHTML='<div class="empty-state"><div class="big">⚠️</div><p>'+esc(e.message)+'</p></div>';}}
+function renderLists(){var search=document.getElementById('searchInput').value.toLowerCase();var filtered=allLists;if(currentFilter!=='all')filtered=filtered.filter(function(l){return l.category===currentFilter;});if(search)filtered=filtered.filter(function(l){return l.name.toLowerCase().indexOf(search)!==-1||(l.description||'').toLowerCase().indexOf(search)!==-1||(l.creator_name||'').toLowerCase().indexOf(search)!==-1;});var c=document.getElementById('listsContainer');if(!filtered.length){c.innerHTML='<div class="empty-state"><div class="big">📭</div><p>'+(allLists.length?'No lists match':'No lists yet — be the first!')+'</p></div>';return;}c.innerHTML=filtered.map(function(l,i){return '<div class="list-card" data-id="'+l.id+'" style="animation-delay:'+Math.min(i*45,220)+'ms"><div class="list-card-top"><div><h3>'+esc(l.name)+' <span class="cat-tag cat-'+(l.category||'general')+'">'+(l.category||'general')+'</span></h3><div class="desc">'+esc(l.description||'')+'</div><div class="list-meta"><span>'+l.account_count+' accounts</span>'+(l.creator_name?'<span>by '+esc(l.creator_name)+'</span>':'')+'</div></div></div></div>';}).join('');c.querySelectorAll('.list-card').forEach(function(card){card.onclick=function(){openDetail(this.dataset.id);};});}
+
+function openDetail(id){
+  var list=allLists.find(function(l){return l.id===id;});if(!list)return;
+  showSection('sec-detail');
+  var accts=list.accounts||[];var shareUrl=window.location.origin+window.location.pathname+'?list='+list.id;
+  var xText=encodeURIComponent('Check out this blocklist: "'+list.name+'"\n'+shareUrl);
+  document.getElementById('detailContent').innerHTML=
+    '<div class="detail-header"><h1 class="detail-title">'+esc(list.name)+'<span class="cat-tag cat-'+(list.category||'general')+'" style="font-family:var(--sans);vertical-align:middle;margin-left:14px">'+(list.category||'general')+'</span></h1><button id="reportBtn" title="Report this list" style="flex-shrink:0;background:none;border:none;cursor:pointer;color:var(--text3);padding:8px;border-radius:99px;transition:all 0.2s;display:flex;align-items:center" onmouseover="this.style.color=\'var(--red)\';this.style.background=\'var(--red-bg)\'" onmouseout="this.style.color=\'var(--text3)\';this.style.background=\'none\'"><span class="material-icons-outlined" style="font-size:20px">flag</span></button></div>'+
+    '<div class="detail-desc">'+esc(list.description||'')+(list.creator_name?' <span style="color:var(--text3)">— by '+esc(list.creator_name)+'</span>':'')+'</div>'+
+    '<div class="detail-stats"><div><div class="stat-num">'+list.account_count+'</div><div class="stat-label">Accounts</div></div></div>'+
+    '<div class="detail-actions"><button class="btn btn-purple" id="installBtn"><span class="material-icons-outlined" style="font-size:16px">download</span> Install</button><a class="btn btn-secondary" href="https://x.com/intent/tweet?text='+xText+'" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Share</a></div>'+
+    '<div class="accounts-grid"><h4>'+accts.length+' accounts</h4>'+accts.map(function(a){return '<a class="acct-chip" href="https://x.com/'+esc(a)+'" target="_blank">@'+esc(a)+'</a>';}).join('')+'</div>';
+  document.getElementById('installBtn').onclick=function(){showInstallModal(id);};
+  document.getElementById('reportBtn').onclick=function(){document.getElementById('reportReason').value='';document.getElementById('reportModal').classList.add('show');document.getElementById('reportSubmitBtn').onclick=function(){var reason=document.getElementById('reportReason').value.trim();if(!reason){toast('Please enter a reason');return;}if(db)db.from('reports').insert({blocklist_id:id,reason:reason}).then(function(){toast('Report submitted — thank you');document.getElementById('reportModal').classList.remove('show');});};};
+}
+
+(function(){var p=new URLSearchParams(window.location.search);var lid=p.get('list');if(lid){loadLists().then(function(){setTimeout(function(){openDetail(lid);},300);});}})();
+
+function showInstallModal(id){var list=allLists.find(function(l){return l.id===id;});if(!list)return;var accts=list.accounts||[];document.getElementById('installListName').textContent='"'+list.name+'" — '+accts.length+' accounts';document.getElementById('installBookmarklet').href=makeInstallBookmarklet(accts);document.getElementById('installScript').value=makeBlockScript(accts);document.getElementById('installModal').classList.add('show');document.querySelectorAll('.install-method-tab').forEach(function(t){t.classList.toggle('active',t.dataset.method==='bookmarklet');});document.querySelectorAll('.install-method-content').forEach(function(c){c.classList.toggle('active',c.id==='method-bookmarklet');});list.follower_count=(list.follower_count||0)+1;renderLists();if(db){db.rpc('increment_followers',{list_id:id}).catch(function(e){console.error('increment failed',e);list.follower_count=Math.max(0,(list.follower_count||1)-1);renderLists();});}}
+
+// Publish
+async function publish(flow){var now=Date.now();if(now-lastPublish<30000){toast('Please wait 30s');return;}var name=document.getElementById(flow+'Name').value.trim();var desc=document.getElementById(flow+'Desc').value.trim();var cat=document.getElementById(flow+'Cat').value;var creator=document.getElementById(flow+'Creator').value.trim();var accounts=parseInput(document.getElementById(flow+'Accounts').value);if(!name||name.length<3){toast('Name must be at least 3 characters');return;}if(accounts.length<5){toast('Need at least 5 accounts to publish a list');return;}if(accounts.length>10000){toast('Max 10,000 accounts per list');return;}if(!db){toast('Database not connected');return;}var btn=document.getElementById(flow+'PublishBtn');btn.textContent='Publishing...';btn.disabled=true;try{var r=await db.from('blocklists').insert({name:name,description:desc,category:cat,creator_name:creator||'anonymous',accounts:accounts,account_count:accounts.length,follower_count:0}).select();if(r.error)throw r.error;lastPublish=Date.now();lastPublishedId=r.data[0].id;var listUrl=window.location.origin+window.location.pathname+'?list='+lastPublishedId;document.getElementById('successLink').value=listUrl;var xText=encodeURIComponent('Check out my blocklist "'+name+'" on ok, bye 👋\n'+listUrl);document.getElementById('successShareX').href='https://x.com/intent/tweet?text='+xText;document.getElementById(flow+'Name').value='';document.getElementById(flow+'Desc').value='';document.getElementById(flow+'Creator').value='';document.getElementById(flow+'Accounts').value='';document.getElementById(flow+'Count').textContent='0 valid accounts detected';await loadLists();showHome();document.getElementById('successModal').classList.add('show');}catch(e){console.error(e);toast('Failed — '+(e.message||'error'));}btn.textContent='Publish blocklist';btn.disabled=false;}
+
+// Admin — uses RPC for delete (bypasses RLS)
+document.getElementById('adminLink').onclick=function(e){e.preventDefault();document.getElementById('adminOverlay').classList.add('show');};
+document.getElementById('closeAdminBtn').onclick=function(){document.getElementById('adminOverlay').classList.remove('show');isAdmin=false;};
+document.getElementById('closeReportBtn').onclick=function(){document.getElementById('reportModal').classList.remove('show');};
+document.getElementById('reportCancelBtn').onclick=function(){document.getElementById('reportModal').classList.remove('show');};
+document.getElementById('adminLoginBtn').onclick=async function(){var pw=document.getElementById('adminPw').value;var hash=await sha256(pw);if(hash===ADMIN_HASH){isAdmin=true;toast('Logged in');loadAdmin();}else toast('Wrong password');};
+async function loadAdmin(){if(!db||!isAdmin)return;var ac=document.getElementById('adminContent');var r=await db.from('blocklists').select('*').order('created_at',{ascending:false});var lists=r.data||[];var rr=await db.from('reports').select('*').order('created_at',{ascending:false});var reports=rr.data||[];ac.innerHTML='<h2 style="font-family:var(--serif);font-size:24px;font-weight:400">Admin</h2><p style="color:var(--text2);font-size:13px;margin-bottom:20px">'+lists.length+' lists · '+reports.length+' reports</p>'+(reports.length?'<div style="margin-bottom:24px"><h3 style="font-size:15px;font-weight:700;margin-bottom:10px;color:var(--red)">Reports</h3><table class="admin-table"><thead><tr><th>List</th><th>Reason</th><th>Date</th></tr></thead><tbody>'+reports.map(function(rep){var l=lists.find(function(x){return x.id===rep.blocklist_id;});return '<tr><td>'+(l?esc(l.name):'deleted')+'</td><td>'+esc(rep.reason)+'</td><td>'+new Date(rep.created_at).toLocaleDateString()+'</td></tr>';}).join('')+'</tbody></table></div>':'')+'<h3 style="font-size:15px;font-weight:700;margin-bottom:10px">All blocklists</h3><table class="admin-table"><thead><tr><th>Name</th><th>Creator</th><th>Accts</th><th>Users</th><th></th></tr></thead><tbody>'+lists.map(function(l){return '<tr><td><strong>'+esc(l.name)+'</strong></td><td>'+esc(l.creator_name||'—')+'</td><td>'+l.account_count+'</td><td>'+l.follower_count+'</td><td><button class="btn-red-outline" onclick="adminDelete(\''+l.id+'\')">Delete</button></td></tr>';}).join('')+'</tbody></table>';}
+async function adminDelete(id){if(!isAdmin||!db)return;if(!confirm('Delete this list?'))return;try{await db.rpc('admin_delete_blocklist',{target_id:id});toast('Deleted');loadAdmin();loadLists();}catch(e){console.error(e);toast('Delete failed — run security-migration-v2.sql first');}}
+
+loadLists();
+</script>
+</body>
+</html>
