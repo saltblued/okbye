@@ -31,7 +31,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Habibi&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <style>
 :root{
@@ -42,7 +42,7 @@
   --red:#D94F4F;--red-bg:#FDECEC;--blue:#3B7DD8;--blue-bg:#E8F0FB;
   --amber:#C78B20;--amber-bg:#FDF4E3;--green:#2D9B6E;--green-bg:#E8F5EE;
   --pink:#C74B8F;--pink-bg:#FCE8F3;
-  --serif:'Fraunces',Georgia,serif;--mono:'JetBrains Mono',monospace;
+  --serif:'Habibi',serif;--mono:'JetBrains Mono',monospace;
   --sans:'Plus Jakarta Sans',-apple-system,sans-serif;
   --radius:16px;--radius-sm:10px;
   --shadow-sm:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.03);
@@ -55,65 +55,109 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
 header{padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;background:rgba(250,250,248,0.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .logo{display:flex;align-items:center;gap:8px;cursor:pointer;text-decoration:none;}
-.logo .material-icons-outlined{font-size:16px;color:var(--purple);}
+.logo .logo-icon{width:18px;height:18px;}
 .logo-text{font-family:var(--serif);font-size:21px;font-weight:500;color:var(--text);}
 .nav-right{display:flex;align-items:center;gap:8px;}
-.nav-link{padding:10px 16px;border-radius:99px;font-size:13px;font-weight:500;color:var(--text2);background:transparent;border:none;cursor:pointer;transition:all 0.2s;font-family:var(--sans);text-decoration:none;line-height:1;}
+.nav-link{padding:10px 16px;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);background:transparent;border:none;cursor:pointer;transition:all 0.2s;font-family:var(--sans);text-decoration:none;line-height:1;}
 .nav-link:hover{color:var(--text);background:var(--surface2);}
-.nav-cta{padding:10px 22px;border-radius:99px;font-size:13px;font-weight:700;color:#fff;background:var(--accent);border:none;cursor:pointer;transition:all 0.2s;font-family:var(--sans);display:inline-flex;align-items:center;gap:6px;line-height:1;}
+.nav-cta{padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;color:#fff;background:var(--accent);border:none;cursor:pointer;transition:all 0.2s;font-family:var(--sans);display:inline-flex;align-items:center;gap:6px;line-height:1;}
 .nav-cta:hover{opacity:0.85;}
 .nav-cta .material-icons-outlined{font-size:16px;}
-.kofi-link{padding:10px 16px;border-radius:99px;font-size:12px;font-weight:600;color:var(--purple);background:var(--purple-bg);border:none;cursor:pointer;transition:all 0.2s;font-family:var(--sans);text-decoration:none;display:inline-flex;align-items:center;gap:5px;line-height:1;}
+.kofi-link{padding:10px 16px;border-radius:6px;font-size:12px;font-weight:600;color:var(--purple);background:var(--purple-bg);border:none;cursor:pointer;transition:all 0.2s;font-family:var(--sans);text-decoration:none;display:inline-flex;align-items:center;gap:5px;line-height:1;}
 .kofi-link:hover{background:var(--purple-light);}
 .kofi-link .material-icons-outlined{font-size:15px;}
 
-.hero{text-align:center;padding:80px 24px 20px;max-width:640px;margin:0 auto;}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:99px;background:var(--purple-bg);color:var(--purple);font-size:12px;font-weight:600;margin-bottom:28px;}
-.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);}
-.hero h1{font-family:var(--serif);font-size:clamp(38px,6.5vw,60px);font-weight:400;letter-spacing:-1.5px;line-height:1.08;margin-bottom:16px;}
+.hero{text-align:center;padding:56px 24px 16px;max-width:560px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:6px;background:var(--purple-bg);color:var(--purple);font-size:12px;font-weight:600;margin-bottom:20px;border:1px solid var(--purple-light);cursor:default;}
+.hero-badge .material-icons-outlined{font-size:15px;animation:bob 2.2s ease-in-out infinite;}
+.hero h1{font-family:var(--serif);font-size:clamp(28px,4vw,42px);font-weight:400;letter-spacing:-1px;line-height:1.1;margin-bottom:12px;}
 .hero h1 em{font-style:italic;color:var(--purple);}
-.hero p{font-size:16px;color:var(--text2);max-width:440px;margin:0 auto;line-height:1.65;}
+.hero p{font-size:14px;color:var(--text2);max-width:380px;margin:0 auto;line-height:1.65;}
 .hero-actions{margin-top:32px;}
-.btn-start{padding:16px 48px;border-radius:99px;font-family:var(--sans);font-size:16px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none;display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;box-shadow:var(--shadow);}
+.btn-start{padding:11px 36px;border-radius:6px;font-family:var(--sans);font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none;display:inline-flex;align-items:center;gap:0;background:var(--accent);color:#fff;box-shadow:var(--shadow);overflow:hidden;}
 .btn-start:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
-.btn-start .material-icons-outlined{font-size:20px;}
+.btn-start .material-icons-outlined{font-size:18px;max-width:0;opacity:0;transform:translateX(-8px);transition:max-width 0.25s ease,opacity 0.25s ease,transform 0.25s ease,margin-left 0.25s ease;margin-left:0;}
+.btn-start:hover .material-icons-outlined{max-width:24px;opacity:1;transform:translateX(0);margin-left:8px;}
 
 .container{max-width:860px;margin:0 auto;padding:0 24px;}
 .section{display:none;padding-bottom:40px;}
 .section.active{display:block;animation:fadeUp 0.35s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes nudge{0%{transform:translateY(0)}30%{transform:translateY(-3px)}60%{transform:translateY(1px)}100%{transform:translateY(0)}}
+@keyframes bob{0%,100%{transform:translateY(0)}40%{transform:translateY(-3px)}65%{transform:translateY(1px)}}
+@keyframes wave-hand{0%{transform:rotate(0deg)}4%{transform:rotate(-8deg)}14%{transform:rotate(24deg)}24%{transform:rotate(-8deg)}33%{transform:rotate(20deg)}41%{transform:rotate(-4deg)}48%,100%{transform:rotate(0deg)}}
+.hero-wave{display:inline-block;width:0.85em;height:0.85em;vertical-align:-0.1em;transform-origin:50% 90%;animation:wave-hand 7s ease-in-out 0.9s infinite;}
+@keyframes shimmer{0%{background-position:-500px 0}100%{background-position:500px 0}}
+
+/* Hero entrance */
+.hero-badge,.hero h1,.hero p,.hero-actions{opacity:0;transform:translateY(16px);}
+.hero-badge.h-vis{opacity:1;transform:translateY(0);transition:opacity 0.6s cubic-bezier(0.32,0.72,0,1),transform 0.6s cubic-bezier(0.32,0.72,0,1);}
+.hero h1.h-vis{opacity:1;transform:translateY(0);transition:opacity 0.7s cubic-bezier(0.32,0.72,0,1),transform 0.7s cubic-bezier(0.32,0.72,0,1);}
+.hero p.h-vis{opacity:1;transform:translateY(0);transition:opacity 0.65s cubic-bezier(0.32,0.72,0,1),transform 0.65s cubic-bezier(0.32,0.72,0,1);}
+.hero-actions.h-vis{opacity:1;transform:translateY(0);transition:opacity 0.6s cubic-bezier(0.32,0.72,0,1),transform 0.6s cubic-bezier(0.32,0.72,0,1);}
+
+/* Skeleton cards */
+.sk{border-radius:8px;background:linear-gradient(90deg,var(--surface2) 0px,var(--surface3) 180px,var(--surface2) 360px);background-size:500px 100%;animation:shimmer 1.5s ease-in-out infinite;}
+.skeleton-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;display:flex;flex-direction:column;gap:10px;}
+.skeleton-card:nth-child(2) .sk{animation-delay:0.15s;}
+.skeleton-card:nth-child(3) .sk{animation-delay:0.3s;}
+.sk-title{height:14px;width:50%;}
+.sk-line{height:11px;width:86%;}
+.sk-line.sk-short{width:60%;}
+.sk-meta{height:10px;width:36%;margin-top:2px;}
 
 /* Choose cards */
 .choose-page{padding-top:48px;padding-bottom:40px;}
 .choose-page h2{font-family:var(--serif);font-size:28px;font-weight:500;text-align:center;margin-bottom:8px;}
 .choose-page>p{text-align:center;color:var(--text2);font-size:15px;margin-bottom:36px;}
 .choose-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.choose-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;cursor:pointer;transition:all 0.2s;box-shadow:var(--shadow-sm);text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;}
-.choose-card:hover{border-color:var(--purple);transform:translateY(-3px);box-shadow:var(--shadow);}
+.choose-card{background:rgba(0,0,0,0.025);border:none;border-radius:16px;padding:3px;cursor:pointer;transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);box-shadow:none;}
+.choose-card:hover{transform:translateY(-3px);}
+.choose-card-inner{background:var(--surface);border-radius:13px;padding:28px 24px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),var(--shadow-sm);border:1px solid var(--border);text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;transition:box-shadow 0.35s cubic-bezier(0.32,0.72,0,1),border-color 0.35s cubic-bezier(0.32,0.72,0,1);height:100%;}
+.choose-card:hover .choose-card-inner{box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),var(--shadow);border-color:var(--purple-light);}
 .choose-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;}
 .choose-icon .material-icons-outlined{font-size:26px;}
 .choose-card h3{font-size:14px;font-weight:700;}
 .choose-card p{font-size:12px;color:var(--text2);line-height:1.5;}
 
-/* Browse — scrollable cream card */
-.browse-wrapper{background:var(--surface2);border-radius:20px;padding:32px;margin-bottom:0;}
-.browse-header h2{font-family:var(--serif);font-size:24px;font-weight:500;margin-bottom:16px;}
-.search-box{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 16px;transition:all 0.2s;box-shadow:var(--shadow-sm);margin-bottom:16px;}
-.search-box:focus-within{border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,92,196,0.1);}
+/* Folder component */
+.folder-wrap{position:relative;}
+.folder-tabs{display:flex;gap:3px;align-items:flex-end;width:max-content;position:relative;z-index:2;margin-bottom:-1px;}
+.folder-tab{position:relative;flex:1;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;padding:10px 22px 11px;border-radius:10px 10px 0 0;cursor:pointer;border:1px solid var(--border);font-family:var(--sans);transition:all 0.25s cubic-bezier(0.32,0.72,0,1);white-space:nowrap;background:var(--surface3);color:var(--text3);transform:translateY(2px);z-index:0;}
+.folder-tab:hover{color:var(--text2);transform:translateY(1px);}
+.folder-tab.tab-active{transform:translateY(0);z-index:2;background:var(--surface2);color:var(--text);border-color:var(--border);border-bottom-color:var(--surface2);}
+.folder-tab.tab-active::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:4px;background:var(--surface2);}
+.folder-body{background:var(--surface2);border:1px solid var(--border);border-radius:0 16px 16px 16px;padding:28px 32px;position:relative;z-index:1;}
+.folder-body.body-tab2{border-radius:16px;}
+.folder-panel{display:none;}
+.folder-panel.panel-active{display:block;animation:fadeUp 0.25s cubic-bezier(0.32,0.72,0,1);}
+.search-box{display:flex;align-items:center;gap:10px;background:var(--surface3);border:none;border-radius:var(--radius-sm);padding:0 16px;transition:background 0.25s cubic-bezier(0.32,0.72,0,1),box-shadow 0.25s cubic-bezier(0.32,0.72,0,1);margin-bottom:16px;}
+.search-box:focus-within{background:var(--surface);box-shadow:0 0 0 2px var(--purple-light);}
 .search-box .material-icons-outlined{font-size:20px;color:var(--text3);}
 .search-box input{flex:1;background:transparent;border:none;color:var(--text);font-family:var(--sans);font-size:14px;padding:12px 0;outline:none;}
 .search-box input::placeholder{color:var(--text3);}
 .filter-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
-.chip{padding:7px 16px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;transition:all 0.2s;font-family:var(--sans);}
+.chip{padding:7px 16px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;transition:all 0.2s;font-family:var(--sans);}
 .chip:hover{border-color:var(--border2);color:var(--text);}
 .chip.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 .lists-scroll{max-height:520px;overflow-y:auto;padding-right:8px;}
 .lists-scroll::-webkit-scrollbar{width:5px;}.lists-scroll::-webkit-scrollbar-track{background:transparent;}.lists-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
 .lists-container{display:grid;gap:10px;}
-.list-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;cursor:pointer;transition:all 0.2s;box-shadow:var(--shadow-sm);overflow:hidden;max-width:100%;}
-.list-card:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:var(--shadow);}
-.list-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;min-width:0;}
-.list-card-top>div:first-child{min-width:0;flex:1;}
+.list-card{cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity 0.5s cubic-bezier(0.32,0.72,0,1),transform 0.5s cubic-bezier(0.32,0.72,0,1);}
+.list-card.card-vis{opacity:1;transform:translateY(0);}
+.list-card-shell{background:rgba(0,0,0,0.025);border-radius:16px;padding:3px;transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);}
+.list-card:hover .list-card-shell{transform:translateY(-2px);}
+.list-card-inner{background:var(--surface);border-radius:13px;padding:18px 20px;overflow:hidden;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),var(--shadow-sm);border:1px solid var(--border);transition:box-shadow 0.35s cubic-bezier(0.32,0.72,0,1);}
+.list-card:hover .list-card-inner{box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),var(--shadow);}
+.list-card-bar{height:3px;border-radius:2px;margin-bottom:14px;width:32px;transition:width 0.4s cubic-bezier(0.32,0.72,0,1);}
+.list-card:hover .list-card-bar{width:52px;}
+.lc-spam .list-card-bar{background:var(--red);}.lc-spam .list-card-wm{color:var(--red);}
+.lc-bots .list-card-bar{background:var(--blue);}.lc-bots .list-card-wm{color:var(--blue);}
+.lc-harassment .list-card-bar{background:var(--amber);}.lc-harassment .list-card-wm{color:var(--amber);}
+.lc-antis .list-card-bar{background:var(--pink);}.lc-antis .list-card-wm{color:var(--pink);}
+.lc-general .list-card-bar{background:var(--green);}.lc-general .list-card-wm{color:var(--green);}
+.list-card-wm{position:absolute;bottom:-10px;right:2px;font-family:var(--serif);font-size:62px;font-weight:400;line-height:1;pointer-events:none;user-select:none;opacity:0.055;transition:opacity 0.35s cubic-bezier(0.32,0.72,0,1),transform 0.35s cubic-bezier(0.32,0.72,0,1);}
+.list-card:hover .list-card-wm{opacity:0.11;transform:scale(1.06) translate(2px,2px);}
 .list-card h3{font-size:15px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;word-break:break-word;}
 .list-card .desc{font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;word-break:break-word;}
 .list-meta{display:flex;gap:16px;font-size:11px;color:var(--text3);font-weight:500;flex-wrap:wrap;}
@@ -123,20 +167,32 @@ header{padding:16px 32px;display:flex;align-items:center;justify-content:space-b
 .empty-state{text-align:center;padding:60px 24px;color:var(--text3);}
 .empty-state .big{font-size:40px;margin-bottom:16px;}
 
-/* Detail — in modal now */
-.detail-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:4px;}
-.detail-title{font-family:var(--serif);font-size:26px;font-weight:500;flex:1;}
-.detail-desc{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:24px;}
-.detail-stats{display:flex;gap:28px;margin-bottom:24px;padding:16px 20px;background:var(--surface2);border-radius:var(--radius-sm);}
-.stat-num{font-size:22px;font-weight:700;color:var(--text);}
-.stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;font-weight:600;margin-top:2px;}
-.detail-actions{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center;}
-.accounts-scroll{max-height:240px;overflow-y:auto;padding-right:4px;}
-.accounts-scroll::-webkit-scrollbar{width:4px;}.accounts-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
-.accounts-grid{display:flex;flex-wrap:wrap;gap:6px;}
-.accounts-grid h4{width:100%;font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;font-weight:700;}
-.acct-chip{font-family:var(--mono);font-size:12px;color:var(--text2);background:var(--surface2);border:1px solid var(--border);padding:5px 12px;border-radius:8px;transition:all 0.15s;text-decoration:none;}
-.acct-chip:hover{border-color:var(--border2);color:var(--text);}
+/* Detail page */
+.detail-page{padding-top:4px;padding-bottom:64px;opacity:0;transform:translateY(16px);transition:opacity 0.6s cubic-bezier(0.32,0.72,0,1),transform 0.6s cubic-bezier(0.32,0.72,0,1);}
+.detail-page.dp-vis{opacity:1;transform:translateY(0);}
+.detail-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px;}
+.detail-title{font-family:var(--sans);font-size:20px;font-weight:700;flex:1;line-height:1.25;letter-spacing:-0.2px;display:flex;align-items:center;flex-wrap:wrap;gap:10px;}
+.detail-desc{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:18px;}
+.detail-report-btn{flex-shrink:0;background:none;border:none;cursor:pointer;color:var(--text3);padding:8px;border-radius:6px;transition:color 0.2s cubic-bezier(0.32,0.72,0,1),background 0.2s cubic-bezier(0.32,0.72,0,1);display:flex;align-items:center;}
+.detail-report-btn:hover{color:var(--red);background:var(--red-bg);}
+.detail-report-btn .material-icons-outlined{font-size:20px;}
+.detail-actions-row{display:flex;gap:10px;margin-bottom:20px;align-items:stretch;flex-wrap:wrap;}
+.btn-install-new{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:6px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:700;box-shadow:0 4px 18px rgba(26,26,24,0.15),0 1px 4px rgba(26,26,24,0.07);transition:transform 0.35s cubic-bezier(0.32,0.72,0,1),box-shadow 0.35s cubic-bezier(0.32,0.72,0,1);}
+.btn-install-new:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,26,24,0.18),0 2px 6px rgba(26,26,24,0.07);}
+.btn-install-new:active{transform:scale(0.98);}
+.btn-install-new .bi-icon{width:22px;height:22px;border-radius:5px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);}
+.btn-install-new:hover .bi-icon{transform:translateY(-1px) scale(1.1);}
+.btn-install-new .material-icons-outlined{font-size:15px;}
+.btn-share-new{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:6px;background:var(--surface2);color:var(--text);border:1px solid var(--border);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;transition:all 0.35s cubic-bezier(0.32,0.72,0,1);text-decoration:none;}
+.btn-share-new:hover{border-color:var(--border2);background:var(--surface3);transform:translateY(-1px);}
+.detail-accts-shell{background:rgba(0,0,0,0.025);border-radius:18px;padding:3px;}
+.detail-accts-inner{background:var(--surface);border-radius:15px;padding:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),var(--shadow-sm);border:1px solid var(--border);max-height:400px;overflow-y:auto;}
+.detail-accts-inner::-webkit-scrollbar{width:4px;}.detail-accts-inner::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+.detail-accts-hdr{margin-bottom:14px;}
+.detail-accts-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.13em;color:var(--text3);}
+.detail-acct-wrap{display:flex;flex-wrap:wrap;gap:6px;}
+.detail-acct-chip{font-family:var(--mono);font-size:12px;color:var(--text2);background:var(--surface2);border:1px solid var(--border);padding:5px 11px;border-radius:8px;transition:border-color 0.2s cubic-bezier(0.32,0.72,0,1),color 0.2s cubic-bezier(0.32,0.72,0,1),background 0.2s cubic-bezier(0.32,0.72,0,1);text-decoration:none;}
+.detail-acct-chip:hover{border-color:var(--purple-light);color:var(--purple);background:var(--purple-bg);}
 
 /* Steps */
 .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;margin:24px 0 24px;padding:0;background:none;border:none;font-family:var(--sans);transition:color 0.2s;}
@@ -151,15 +207,15 @@ header{padding:16px 32px;display:flex;align-items:center;justify-content:space-b
 .bookmarklet-drag{display:inline-flex;align-items:center;gap:10px;background:var(--surface);color:var(--text);padding:14px 24px;border-radius:var(--radius-sm);font-family:var(--sans);font-size:14px;font-weight:600;cursor:grab;margin:16px 0;user-select:none;transition:all 0.15s;text-decoration:none;border:2px dashed var(--border2);}
 .bookmarklet-drag:hover{border-color:var(--purple);background:var(--purple-bg);color:var(--purple);transform:translateY(-1px);}
 .bookmarklet-drag:active{cursor:grabbing;transform:scale(0.97);border-style:solid;border-color:var(--purple);background:var(--purple-light);}
-.bookmarklet-drag .drag-icon{display:flex;flex-direction:column;gap:2px;opacity:0.4;}
-.bookmarklet-drag .drag-icon span{display:block;width:14px;height:2px;background:currentColor;border-radius:1px;}
-.bookmarklet-drag:hover .drag-icon{opacity:0.7;}
+.bookmarklet-drag .drag-icon{width:18px;height:18px;flex-shrink:0;opacity:0.6;}
+.bookmarklet-drag .drag-icon img{width:100%;height:100%;}
+.bookmarklet-drag:hover .drag-icon{opacity:1;}
 .drag-hint{display:flex;align-items:center;gap:8px;margin-top:8px;padding:10px 14px;background:var(--surface2);border-radius:var(--radius-sm);font-size:12px;color:var(--text2);line-height:1.5;}
 .drag-hint .material-icons-outlined{font-size:18px;color:var(--purple);flex-shrink:0;}
 .step-images{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 16px;}
 .step-images figure{margin:0;text-align:center;}
 .step-images img{width:100%;border-radius:var(--radius-sm);border:1px solid var(--border);box-shadow:var(--shadow-sm);}
-.step-images figcaption{font-size:11px;color:var(--text3);margin-top:8px;font-weight:500;}
+.step-images figcaption{display:none;}
 @media(max-width:500px){.step-images{grid-template-columns:1fr;}}
 .form-group{margin-bottom:18px;}
 .form-group label{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;gap:12px;}
@@ -176,53 +232,66 @@ header{padding:16px 32px;display:flex;align-items:center;justify-content:space-b
 @media(max-width:560px){.form-row{grid-template-columns:1fr;}}
 
 /* Buttons — uniform height */
-.btn{padding:11px 24px;border-radius:99px;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;display:inline-flex;align-items:center;gap:7px;text-decoration:none;line-height:1;}
+.btn{padding:11px 24px;border-radius:6px;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;display:inline-flex;align-items:center;gap:7px;text-decoration:none;line-height:1;}
 .btn-primary{background:var(--accent);color:#fff;}
 .btn-primary:hover{opacity:0.88;transform:translateY(-1px);}
 .btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}
 .btn-secondary:hover{border-color:var(--border2);background:var(--surface2);}
 .btn-purple{background:var(--purple);color:#fff;}
 .btn-purple:hover{opacity:0.88;}
-.btn-red-outline{color:var(--red);border:1px solid var(--red-bg);background:var(--red-bg);padding:11px 18px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;line-height:1;}
+.btn-red-outline{color:var(--red);border:1px solid var(--red-bg);background:var(--red-bg);padding:11px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;line-height:1;}
 .btn-red-outline:hover{background:var(--red);color:#fff;}
 
 /* Modals — shared */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.32);z-index:300;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
 .modal-overlay.show{display:flex;}
-.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px;width:560px;max-width:92vw;max-height:88vh;overflow-y:auto;animation:fadeUp 0.25s ease;box-shadow:var(--shadow-lg);}
-.modal-box h3{font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:4px;}
-.modal-box>p{color:var(--text2);font-size:13px;margin-bottom:24px;}
-.modal-close{float:right;background:var(--surface2);border:none;color:var(--text3);width:32px;height:32px;border-radius:99px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 32px;width:520px;max-width:92vw;max-height:88vh;overflow-y:auto;animation:fadeUp 0.3s cubic-bezier(0.32,0.72,0,1);box-shadow:0 0 0 3px rgba(0,0,0,0.022),0 16px 48px rgba(0,0,0,0.08),0 4px 12px rgba(0,0,0,0.04),inset 0 1px 0 rgba(255,255,255,0.9);}
+.modal-box h3{font-family:var(--sans);font-size:18px;font-weight:700;margin-bottom:4px;letter-spacing:-0.2px;}
+.modal-box>p{color:var(--text2);font-size:13px;margin-bottom:20px;}
+.modal-close{float:right;background:var(--surface2);border:none;color:var(--text3);width:30px;height:30px;border-radius:6px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.25s cubic-bezier(0.32,0.72,0,1);}
 .modal-close:hover{background:var(--surface3);color:var(--text);}
 .install-methods{display:flex;gap:6px;margin-bottom:20px;}
-.install-method-tab{flex:1;padding:11px;border-radius:var(--radius-sm);text-align:center;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-family:var(--sans);font-size:13px;font-weight:600;transition:all 0.2s;line-height:1;}
-.install-method-tab.active{background:var(--purple);color:#fff;border-color:var(--purple);}
+.install-method-tab{flex:1;padding:10px;border-radius:6px;text-align:center;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-family:var(--sans);font-size:13px;font-weight:600;transition:all 0.25s cubic-bezier(0.32,0.72,0,1);line-height:1;}
+.install-method-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 .install-method-tab:hover:not(.active){border-color:var(--border2);color:var(--text);}
 .install-method-content{display:none;}.install-method-content.active{display:block;}
 .install-step{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;}
-.install-step-num{background:var(--surface2);color:var(--text);width:24px;height:24px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.install-step-num{background:var(--surface2);color:var(--text);width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
 .install-step-text{font-size:13px;color:var(--text2);line-height:1.55;}.install-step-text strong{color:var(--text);}
 
 /* Success modal */
-.success-content{text-align:center;padding:16px 0;}
-.success-icon{font-size:56px;margin-bottom:16px;display:block;}
-.success-content h2{font-family:var(--serif);font-size:28px;font-weight:500;margin-bottom:10px;}
+.success-content{text-align:center;padding:12px 0;}
+.success-icon{font-size:48px;margin-bottom:12px;display:block;}
+.success-content h2{font-family:var(--sans);font-size:22px;font-weight:700;margin-bottom:8px;letter-spacing:-0.3px;}
 .success-content .cheeky{font-size:13px;color:var(--text3);font-style:italic;margin-bottom:24px;line-height:1.6;}
-.copy-link-box{display:flex;align-items:center;background:var(--surface2);border-radius:var(--radius-sm);padding:4px 4px 4px 16px;margin-bottom:20px;gap:8px;}
+.copy-link-box{display:flex;align-items:center;background:var(--surface2);border-radius:6px;padding:4px 4px 4px 14px;margin-bottom:20px;gap:8px;border:1px solid var(--border);}
 .copy-link-box input{flex:1;background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:13px;outline:none;min-width:0;}
-.copy-link-btn{padding:10px 20px;border-radius:8px;background:var(--accent);color:#fff;border:none;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
-.copy-link-btn:hover{opacity:0.85;}
+.copy-link-btn{padding:9px 18px;border-radius:6px;background:var(--accent);color:#fff;border:none;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.25s cubic-bezier(0.32,0.72,0,1);white-space:nowrap;}
+.copy-link-btn:hover{opacity:0.85;transform:translateY(-1px);}
 .success-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 
-/* How it works — flat, no card */
-.how-section{padding:48px 0 40px;}
-.how-section h2{font-family:var(--serif);font-size:24px;font-weight:500;margin-bottom:6px;}
-.how-subtitle{color:var(--text2);font-size:14px;margin-bottom:32px;}
-.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.how-card{background:transparent;border:none;border-radius:0;padding:0;box-shadow:none;}
-.how-card .material-icons-outlined{font-size:26px;margin-bottom:14px;display:block;}
-.how-card h3{font-size:14px;font-weight:700;margin-bottom:6px;}
-.how-card p{font-size:13px;color:var(--text2);line-height:1.55;}
+/* How it works — elevated Z-axis cascade */
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:8px 4px 12px;}
+.how-steps{align-items:stretch;}
+.how-step{position:relative;background:rgba(0,0,0,0.028);border-radius:16px;padding:3px;transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);display:flex;flex-direction:column;}
+.how-step:nth-child(1){transform:rotate(-1.5deg);}
+.how-step:nth-child(2){transform:translateY(7px);}
+.how-step:nth-child(3){transform:rotate(1deg);}
+.how-step:hover{transform:rotate(0deg) translateY(-4px) !important;}
+.how-step-inner{background:var(--surface);border-radius:13px;padding:22px 20px 28px;overflow:hidden;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),var(--shadow-sm);border:1px solid var(--border);flex:1;}
+.how-step-bar{height:3px;border-radius:2px;margin-bottom:18px;width:36px;transition:width 0.4s cubic-bezier(0.32,0.72,0,1);}
+.how-step:hover .how-step-bar{width:56px;}
+.how-step:nth-child(1) .how-step-bar{background:var(--red);}
+.how-step:nth-child(2) .how-step-bar{background:var(--amber);}
+.how-step:nth-child(3) .how-step-bar{background:var(--purple);}
+.how-step h3{font-size:14px;font-weight:700;margin-bottom:7px;color:var(--text);}
+.how-step p{font-size:12px;color:var(--text2);line-height:1.65;}
+.how-step-num{position:absolute;bottom:-14px;right:-2px;font-family:var(--serif);font-size:86px;font-weight:400;line-height:1;pointer-events:none;user-select:none;opacity:0.055;transition:opacity 0.4s cubic-bezier(0.32,0.72,0,1),transform 0.4s cubic-bezier(0.32,0.72,0,1);}
+.how-step:nth-child(1) .how-step-num{color:var(--red);}
+.how-step:nth-child(2) .how-step-num{color:var(--amber);}
+.how-step:nth-child(3) .how-step-num{color:var(--purple);}
+.how-step:hover .how-step-num{opacity:0.11;transform:scale(1.08) translate(3px,3px);}
+@media(max-width:600px){.how-steps{grid-template-columns:1fr;}.how-step:nth-child(1),.how-step:nth-child(2),.how-step:nth-child(3){transform:none;}}
 
 .admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:400;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
 .admin-overlay.show{display:flex;}
@@ -251,17 +320,9 @@ footer a{color:var(--text2);text-decoration:none;}footer a:hover{color:var(--tex
 </head>
 <body>
 
-<header>
-  <div class="logo" id="logoBtn"><span class="logo-text">ok, bye</span><span class="material-icons-outlined">waving_hand</span></div>
-  <div class="nav-right">
-    <button class="nav-link" id="navHow">How it works</button>
-    <a class="kofi-link" href="https://ko-fi.com/saltblued" target="_blank" rel="noopener"><span class="material-icons-outlined">favorite</span> Tip</a>
-  </div>
-</header>
-
 <div class="hero" id="hero">
-  <div class="hero-badge"><span class="hero-badge-dot"></span> Community-powered</div>
-  <h1>Wave goodbye<br><em>to the noise</em></h1>
+  <div class="hero-badge"><span class="material-icons-outlined">computer</span> This works only by using your computer</div>
+  <h1>Wave goodbye<br><em>to the noise</em> <img src="waving_hand.svg" class="hero-wave" alt=""></h1>
   <p>Block, collect, and share blocklists — remove eyesores and skip the nonsense.</p>
   <div class="hero-actions"><button class="btn-start" id="startBtn">Start <span class="material-icons-outlined">arrow_forward</span></button></div>
 </div>
@@ -269,26 +330,61 @@ footer a{color:var(--text2);text-decoration:none;}footer a:hover{color:var(--tex
 <div class="container">
   <!-- CHOOSE -->
   <div class="section" id="sec-choose"><div class="choose-page"><button class="back-link" id="backChoose">&#8592; Back</button><h2>What would you like to do?</h2><p>Pick an option to get started.</p><div class="choose-grid">
-    <div class="choose-card" id="choiceShare"><div class="choose-icon" style="background:var(--purple-bg)"><span class="material-icons-outlined" style="color:var(--purple)">upload</span></div><h3>Share your blocklist</h3><p>Export your blocked accounts and publish them for others.</p></div>
-    <div class="choose-card" id="choiceBlock"><div class="choose-icon" style="background:var(--red-bg)"><span class="material-icons-outlined" style="color:var(--red)">block</span></div><h3>Block followers or reposters</h3><p>Collect and block everyone in one click.</p></div>
-    <div class="choose-card" id="choiceCollect"><div class="choose-icon" style="background:var(--blue-bg)"><span class="material-icons-outlined" style="color:var(--blue)">playlist_add</span></div><h3>Collect to create a list</h3><p>Collect accounts and publish — without blocking.</p></div>
+    <div class="choose-card" id="choiceShare"><div class="choose-card-inner"><div class="choose-icon" style="background:var(--purple-bg)"><span class="material-icons-outlined" style="color:var(--purple)">upload</span></div><h3>Share your blocklist</h3><p>Export your blocked accounts and publish them for others.</p></div></div>
+    <div class="choose-card" id="choiceBlock"><div class="choose-card-inner"><div class="choose-icon" style="background:var(--red-bg)"><span class="material-icons-outlined" style="color:var(--red)">block</span></div><h3>Block followers or reposters</h3><p>Collect and block everyone in one click.</p></div></div>
+    <div class="choose-card" id="choiceCollect"><div class="choose-card-inner"><div class="choose-icon" style="background:var(--blue-bg)"><span class="material-icons-outlined" style="color:var(--blue)">playlist_add</span></div><h3>Collect to create a list</h3><p>Collect accounts and publish — without blocking.</p></div></div>
   </div></div></div>
 
   <!-- BROWSE -->
   <div class="section active" id="sec-browse">
     <div style="height:48px"></div>
-    <div class="browse-wrapper">
-      <div class="browse-header"><h2>Community blocklists</h2></div>
-      <div class="search-box"><span class="material-icons-outlined">search</span><input type="text" id="searchInput" placeholder="Search by list name or creator..."></div>
-      <div class="filter-row" id="filterRow">
-        <button class="chip active" data-cat="all">All</button>
-        <button class="chip" data-cat="spam">Spam</button>
-        <button class="chip" data-cat="bots">Bots</button>
-        <button class="chip" data-cat="harassment">Harassment</button>
-        <button class="chip" data-cat="antis">Antis</button>
-        <button class="chip" data-cat="general">General</button>
+    <div class="folder-wrap" id="howWrapper">
+      <div class="folder-tabs" id="folderTabs">
+        <button class="folder-tab tab-how tab-active" data-panel="panel-how">How it works</button>
+        <button class="folder-tab tab-community" data-panel="panel-community">Made by the community</button>
       </div>
-      <div class="lists-scroll" style="max-height:380px"><div class="lists-container" id="listsContainer"><div class="empty-state"><div class="big">⏳</div><p>Loading lists...</p></div></div></div>
+      <div class="folder-body" id="folderBody">
+        <div class="folder-panel panel-active" id="panel-how">
+          <div class="how-steps">
+            <div class="how-step">
+              <div class="how-step-inner">
+                <div class="how-step-bar"></div>
+                <h3>Block instantly</h3>
+                <p>One bookmarklet. Visit a followers or reposters page. Click — everyone gets blocked.</p>
+                <div class="how-step-num">01</div>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-step-inner">
+                <div class="how-step-bar"></div>
+                <h3>Create lists</h3>
+                <p>Collect accounts and publish them as a blocklist for the community.</p>
+                <div class="how-step-num">02</div>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-step-inner">
+                <div class="how-step-bar"></div>
+                <h3>Install lists</h3>
+                <p>Browse community blocklists. Install any list with a bookmarklet.</p>
+                <div class="how-step-num">03</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="folder-panel" id="panel-community">
+          <div class="search-box"><span class="material-icons-outlined">search</span><input type="text" id="searchInput" placeholder="Search by list name or creator..."></div>
+          <div class="filter-row" id="filterRow">
+            <button class="chip active" data-cat="all">All</button>
+            <button class="chip" data-cat="spam">Spam</button>
+            <button class="chip" data-cat="bots">Bots</button>
+            <button class="chip" data-cat="harassment">Harassment</button>
+            <button class="chip" data-cat="antis">Antis</button>
+            <button class="chip" data-cat="general">General</button>
+          </div>
+          <div class="lists-scroll" style="max-height:380px"><div class="lists-container" id="listsContainer"><div class="empty-state"><div class="big">⏳</div><p>Loading lists...</p></div></div></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -299,21 +395,21 @@ footer a{color:var(--text2);text-decoration:none;}footer a:hover{color:var(--tex
   </div>
 
   <!-- FLOW 1: SHARE -->
-  <div class="section" id="sec-share"><div class="create-section"><button class="back-link" id="backShare">&#8592; Back</button><h2>Share your blocklist</h2><p>Export your blocked accounts from X and publish them as a community list.</p><div class="step-block"><span class="step-num">Step 1 — Export</span><h3>Grab your block list from X</h3><p style="margin-bottom:16px">Drag the button to your bookmarks bar. Visit <strong style="color:var(--text)">x.com/settings/blocked/all</strong> and click it.</p><a class="bookmarklet-drag" id="shareBookmarklet" href="javascript:void(0)"><span class="drag-icon"><span></span><span></span><span></span></span> Collect blocked accounts</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag to your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click here.</span></div></div><div class="step-block"><span class="step-num">Step 2 — Publish</span><h3>Name it and share it</h3><p style="margin-bottom:20px">Paste the usernames, fill in the details, and publish.</p>
+  <div class="section" id="sec-share"><div class="create-section"><button class="back-link" id="backShare">&#8592; Back</button><h2>Share your blocklist</h2><p>Export your blocked accounts from X and publish them as a community list.</p><div class="step-block"><span class="step-num">Step 1 — Export</span><h3>Grab your block list from X</h3><p style="margin-bottom:16px">Drag the button to your bookmarks bar. Visit <strong style="color:var(--text)">x.com/settings/blocked/all</strong> and click it.</p><a class="bookmarklet-drag" id="shareBookmarklet" href="javascript:void(0)"><span class="drag-icon"><img src="waving_hand.svg" alt=""></span> Collect blocked accounts</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag to your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click here.</span></div></div><div class="step-block"><span class="step-num">Step 2 — Publish</span><h3>Name it and share it</h3><p style="margin-bottom:20px">Paste the usernames, fill in the details, and publish.</p>
   <div class="form-row"><div class="form-group"><label>List name</label><input type="text" id="shareName" placeholder="e.g. My spam blocklist" maxlength="100"></div><div class="form-group"><label>Created by</label><input type="text" id="shareCreator" placeholder="Who curated this"></div></div>
   <div class="form-group"><label>Description <span class="label-counter" id="shareDescCounter">0 / 200</span></label><textarea id="shareDesc" placeholder="What kind of accounts are on this list?" maxlength="200" rows="5" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5"></textarea></div>
   <div class="form-group"><label>Category</label><select id="shareCat"><option value="spam">Spam</option><option value="bots">Bots</option><option value="harassment">Harassment</option><option value="antis">Antis</option><option value="general">General</option></select></div>
   <div class="form-group"><label>Accounts <span style="font-weight:400;color:var(--text3)">(one per line)</span></label><textarea id="shareAccounts" placeholder="Paste usernames from your clipboard"></textarea><div class="form-help" id="shareCount">0 valid accounts detected</div></div><button class="btn btn-primary" id="sharePublishBtn">Publish blocklist</button></div></div></div>
 
   <!-- FLOW 2: BLOCK -->
-  <div class="section" id="sec-block"><div class="create-section"><button class="back-link" id="backBlock">&#8592; Back</button><h2>Block followers or reposters</h2><p>One bookmarklet does everything. Set it up once, use it whenever.</p><div class="step-block"><span class="step-num">Step 1 — Add the bookmarklet</span><h3>Drag this to your bookmarks bar</h3><p style="margin-bottom:16px">Once it's in your bookmarks bar, you can reuse it anytime. Make sure your bookmarks bar is visible.</p><a class="bookmarklet-drag" id="blockBookmarklet" href="javascript:void(0)"><span class="drag-icon"><span></span><span></span><span></span></span> Collect &amp; Block</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag the button above into your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click it here — drag it.</span></div></div><div class="step-block"><span class="step-num">Step 2 — Go to X and click the bookmark</span><h3>Open a follower or reposter page</h3><p style="margin-bottom:16px">Go to the account you want to block and open their <strong style="color:var(--text)">follower page</strong> <span style="color:var(--text3)">(x.com/username/followers)</span>. Or open any post and tap <strong style="color:var(--text)">Reposts</strong> to view reposters.</p><div class="step-images"><figure><img src="follower-page.webp" alt="X follower page showing a list of followers" loading="lazy"><figcaption>Follower page — click "Followers" on a profile</figcaption></figure><figure><img src="reblog_page.webp" alt="X repost page showing who reposted" loading="lazy"><figcaption>Repost page — tap the repost icon on any post</figcaption></figure></div><p style="margin-bottom:16px">Once the list of people is showing, click <strong style="color:var(--text)">"Collect & Block"</strong> in your bookmarks bar. It will scroll through the page and block automatically. When done, it copies the usernames to your clipboard.</p><div style="padding:14px 16px;background:var(--amber-bg);border:1px solid #EDD9A3;border-radius:var(--radius-sm);font-size:13px;line-height:1.6"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:4px;color:#9A7318"><span class="material-icons-outlined" style="font-size:18px">info</span> Good to know</strong><span style="color:var(--text2)">X doesn't always load every follower — the bookmarklet collects what's visible on the page. Repost pages tend to load faster and fully.</span></div></div><div class="step-block"><span class="step-num">Step 3 — Publish (optional)</span><h3>Share the list with the community</h3><p style="margin-bottom:20px">After blocking, the accounts are on your clipboard. Paste them below to create a public blocklist others can install.</p>
+  <div class="section" id="sec-block"><div class="create-section"><button class="back-link" id="backBlock">&#8592; Back</button><h2>Block followers or reposters</h2><p>One bookmarklet does everything. Set it up once, use it whenever.</p><div class="step-block"><span class="step-num">Step 1 — Add the bookmarklet</span><h3>Drag this to your bookmarks bar</h3><p style="margin-bottom:16px">Once it's in your bookmarks bar, you can reuse it anytime. Make sure your bookmarks bar is visible.</p><a class="bookmarklet-drag" id="blockBookmarklet" href="javascript:void(0)"><span class="drag-icon"><img src="waving_hand.svg" alt=""></span> Collect &amp; Block</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag the button above into your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click it here — drag it.</span></div></div><div class="step-block"><span class="step-num">Step 2 — Go to X and click the bookmark</span><h3>Open a follower or reposter page</h3><p style="margin-bottom:16px">Go to the account you want to block and open their <strong style="color:var(--text)">followers</strong> <span style="color:var(--text3)">(x.com/username/followers)</span>. Or open any post and tap <strong style="color:var(--text)">View post activity</strong> to view reposters.</p><div class="step-images"><figure><img src="follower-page.webp" alt="X follower page showing a list of followers" loading="lazy"><figcaption>Followers— click "Followers" on a profile</figcaption></figure><figure><img src="reblog_page.webp" alt="X repost page showing who reposted" loading="lazy"><figcaption>View post activity — tap to see reposters</figcaption></figure></div><p style="margin-bottom:16px">Once the list of people is showing, click <strong style="color:var(--text)">"Collect & Block"</strong> in your bookmarks bar. It will scroll through the page and block automatically. When done, it copies the usernames to your clipboard.</p><div style="padding:14px 16px;background:var(--amber-bg);border:1px solid #EDD9A3;border-radius:var(--radius-sm);font-size:13px;line-height:1.6"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:4px;color:#9A7318"><span class="material-icons-outlined" style="font-size:18px">info</span> Good to know</strong><span style="color:var(--text2)">X doesn't always load every follower — the bookmarklet collects what's visible on the page. Repost pages tend to load faster and fully.</span></div></div><div class="step-block"><span class="step-num">Step 3 — Publish (optional)</span><h3>Share the list with the community</h3><p style="margin-bottom:20px">After blocking, the accounts are on your clipboard. Paste them below to create a public blocklist others can install.</p>
   <div class="form-row"><div class="form-group"><label>List name</label><input type="text" id="blockName" placeholder="e.g. @badaccount followers" maxlength="100"></div><div class="form-group"><label>Created by</label><input type="text" id="blockCreator" placeholder="Who curated this"></div></div>
   <div class="form-group"><label>Description <span class="label-counter" id="blockDescCounter">0 / 200</span></label><textarea id="blockDesc" placeholder="What kind of accounts?" maxlength="200" rows="5" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5"></textarea></div>
   <div class="form-group"><label>Category</label><select id="blockCat"><option value="antis">Antis</option><option value="spam">Spam</option><option value="bots">Bots</option><option value="harassment">Harassment</option><option value="general">General</option></select></div>
   <div class="form-group"><label>Accounts <span style="font-weight:400;color:var(--text3)">(one per line)</span></label><textarea id="blockAccounts" placeholder="Paste from clipboard"></textarea><div class="form-help" id="blockCount">0 valid accounts detected</div></div><button class="btn btn-primary" id="blockPublishBtn">Publish blocklist</button></div></div></div>
 
   <!-- FLOW 3: COLLECT -->
-  <div class="section" id="sec-collect"><div class="create-section"><button class="back-link" id="backCollect">&#8592; Back</button><h2>Collect to create a new list</h2><p>Collect followers or reposters without blocking — publish for others.</p><div class="step-block"><span class="step-num">Step 1 — Add the bookmarklet</span><h3>Drag this to your bookmarks bar</h3><p style="margin-bottom:16px">Once it's in your bookmarks bar, you can reuse it anytime. Make sure your bookmarks bar is visible.</p><a class="bookmarklet-drag" id="collectBookmarklet" href="javascript:void(0)"><span class="drag-icon"><span></span><span></span><span></span></span> Collect accounts</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag the button above into your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click it here — drag it.</span></div></div><div class="step-block"><span class="step-num">Step 2 — Go to X and click the bookmark</span><h3>Open a follower or reposter page</h3><p style="margin-bottom:16px">Go to the account and open their <strong style="color:var(--text)">follower page</strong> <span style="color:var(--text3)">(x.com/username/followers)</span>. Or open any post and tap <strong style="color:var(--text)">Reposts</strong> to view reposters.</p><div class="step-images"><figure><img src="follower-page.webp" alt="X follower page showing a list of followers" loading="lazy"><figcaption>Follower page — click "Followers" on a profile</figcaption></figure><figure><img src="reblog_page.webp" alt="X repost page showing who reposted" loading="lazy"><figcaption>Repost page — tap the repost icon on any post</figcaption></figure></div><p style="margin-bottom:16px">Once the list is showing, click <strong style="color:var(--text)">"Collect accounts"</strong> in your bookmarks bar. It will scroll and collect automatically. When done, it copies the usernames to your clipboard.</p><div style="padding:14px 16px;background:var(--amber-bg);border:1px solid #EDD9A3;border-radius:var(--radius-sm);font-size:13px;line-height:1.6"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:4px;color:#9A7318"><span class="material-icons-outlined" style="font-size:18px">info</span> Good to know</strong><span style="color:var(--text2)">X doesn't always load every follower — the bookmarklet collects what's visible on the page. Repost pages tend to load faster and fully.</span></div></div><div class="step-block"><span class="step-num">Step 3 — Publish</span><h3>Create the blocklist</h3><p style="margin-bottom:20px">Paste the collected usernames and publish.</p>
+  <div class="section" id="sec-collect"><div class="create-section"><button class="back-link" id="backCollect">&#8592; Back</button><h2>Collect to create a new list</h2><p>Collect followers or reposters without blocking — publish for others.</p><div class="step-block"><span class="step-num">Step 1 — Add the bookmarklet</span><h3>Drag this to your bookmarks bar</h3><p style="margin-bottom:16px">Once it's in your bookmarks bar, you can reuse it anytime. Make sure your bookmarks bar is visible.</p><a class="bookmarklet-drag" id="collectBookmarklet" href="javascript:void(0)"><span class="drag-icon"><img src="waving_hand.svg" alt=""></span> Collect accounts</a><div class="drag-hint"><span class="material-icons-outlined">north</span><span>Drag the button above into your <strong style="color:var(--text)">bookmarks bar</strong>. Don't click it here — drag it.</span></div></div><div class="step-block"><span class="step-num">Step 2 — Go to X and click the bookmark</span><h3>Open a follower or reposter page</h3><p style="margin-bottom:16px">Go to the account and open their <strong style="color:var(--text)">followers</strong> <span style="color:var(--text3)">(x.com/username/followers)</span>. Or open any post and tap <strong style="color:var(--text)">View post activity</strong> to view reposters.</p><div class="step-images"><figure><img src="follower-page.webp" alt="X follower page showing a list of followers" loading="lazy"><figcaption>Followers — click "Followers" on a profile</figcaption></figure><figure><img src="reblog_page.webp" alt="X repost page showing who reposted" loading="lazy"><figcaption>View post activity - tap to see reposters</figcaption></figure></div><p style="margin-bottom:16px">Once the list is showing, click <strong style="color:var(--text)">"Collect accounts"</strong> in your bookmarks bar. It will scroll and collect automatically. When done, it copies the usernames to your clipboard.</p><div style="padding:14px 16px;background:var(--amber-bg);border:1px solid #EDD9A3;border-radius:var(--radius-sm);font-size:13px;line-height:1.6"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:4px;color:#9A7318"><span class="material-icons-outlined" style="font-size:18px">info</span> Good to know</strong><span style="color:var(--text2)">X doesn't always load every follower — the bookmarklet collects what's visible on the page. Repost pages tend to load faster and fully.</span></div></div><div class="step-block"><span class="step-num">Step 3 — Publish</span><h3>Create the blocklist</h3><p style="margin-bottom:20px">Paste the collected usernames and publish.</p>
   <div class="form-row"><div class="form-group"><label>List name</label><input type="text" id="collectName" placeholder="e.g. @account followers" maxlength="100"></div><div class="form-group"><label>Created by</label><input type="text" id="collectCreator" placeholder="Who curated this"></div></div>
   <div class="form-group"><label>Description <span class="label-counter" id="collectDescCounter">0 / 200</span></label><textarea id="collectDesc" placeholder="What kind of accounts?" maxlength="200" rows="5" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5"></textarea></div>
   <div class="form-group"><label>Category</label><select id="collectCat"><option value="antis">Antis</option><option value="spam">Spam</option><option value="bots">Bots</option><option value="harassment">Harassment</option><option value="general">General</option></select></div>
@@ -321,10 +417,9 @@ footer a{color:var(--text2);text-decoration:none;}footer a:hover{color:var(--tex
 </div>
 
 <!-- HOW IT WORKS — landing page only -->
-<div class="container" id="howWrapper"><div class="how-section" id="howSection"><h2>How it works</h2><p class="how-subtitle">Simple tools to clean up your timeline</p><div class="how-grid"><div class="how-card"><span class="material-icons-outlined" style="color:var(--purple)">block</span><h3>Block instantly</h3><p>One bookmarklet. Visit a followers or reposters page. Click — everyone gets blocked.</p></div><div class="how-card"><span class="material-icons-outlined" style="color:var(--purple)">playlist_add</span><h3>Create lists</h3><p>Collect accounts and publish them as a blocklist for the community.</p></div><div class="how-card"><span class="material-icons-outlined" style="color:var(--purple)">download</span><h3>Install lists</h3><p>Browse community blocklists. Install any list with a bookmarklet.</p></div></div></div></div>
 
 <!-- INSTALL MODAL -->
-<div class="modal-overlay" id="installModal"><div class="modal-box"><button class="modal-close" id="closeModalBtn">&#10005;</button><h3>Install blocklist</h3><p id="installListName"></p><div class="install-methods"><button class="install-method-tab active" data-method="bookmarklet">Bookmarklet (easy)</button><button class="install-method-tab" data-method="console">Console (advanced)</button></div><div class="install-method-content active" id="method-bookmarklet"><div class="install-step"><div class="install-step-num">1</div><div class="install-step-text">Drag to your <strong>bookmarks bar</strong>:</div></div><div style="text-align:center;margin-bottom:20px"><a class="bookmarklet-drag" id="installBookmarklet" href="javascript:void(0)" style="font-size:13px;padding:11px 22px"><span class="drag-icon"><span></span><span></span><span></span></span> Block this list</a></div><div class="install-step"><div class="install-step-num">2</div><div class="install-step-text">Go to <strong>x.com</strong> (logged in)</div></div><div class="install-step"><div class="install-step-num">3</div><div class="install-step-text">Click the bookmark.</div></div></div><div class="install-method-content" id="method-console"><div class="form-group" style="margin-top:4px"><textarea id="installScript" readonly style="min-height:160px;font-size:11px;line-height:1.6;color:var(--purple);background:var(--purple-bg);border-color:var(--purple-light)"></textarea></div><button class="btn btn-primary" id="copyScriptBtn">Copy script</button></div></div></div>
+<div class="modal-overlay" id="installModal"><div class="modal-box"><button class="modal-close" id="closeModalBtn">&#10005;</button><h3>Install blocklist</h3><p id="installListName"></p><div class="install-methods"><button class="install-method-tab active" data-method="bookmarklet">Bookmarklet (easy)</button><button class="install-method-tab" data-method="console">Console (advanced)</button></div><div class="install-method-content active" id="method-bookmarklet"><div class="install-step"><div class="install-step-num">1</div><div class="install-step-text">Drag to your <strong>bookmarks bar</strong>:</div></div><div style="text-align:center;margin-bottom:20px"><a class="bookmarklet-drag" id="installBookmarklet" href="javascript:void(0)" style="font-size:13px;padding:11px 22px"><span class="drag-icon"><img src="waving_hand.svg" alt=""></span> Block this list</a></div><div class="install-step"><div class="install-step-num">2</div><div class="install-step-text">Go to <strong>x.com</strong> (logged in)</div></div><div class="install-step"><div class="install-step-num">3</div><div class="install-step-text">Click the bookmark.</div></div></div><div class="install-method-content" id="method-console"><div class="form-group" style="margin-top:4px"><textarea id="installScript" readonly style="min-height:160px;font-size:11px;line-height:1.6;color:var(--purple);background:var(--purple-bg);border-color:var(--purple-light)"></textarea></div><button class="btn btn-primary" id="copyScriptBtn">Copy script</button></div></div></div>
 
 <!-- SUCCESS MODAL -->
 <div class="modal-overlay" id="successModal"><div class="modal-box"><div class="success-content">
@@ -343,7 +438,7 @@ footer a{color:var(--text2);text-decoration:none;}footer a:hover{color:var(--tex
   <button class="modal-close" id="closeReportBtn">&#10005;</button>
   <h3>Report this list</h3>
   <p>Let us know what's wrong. We'll review it.</p>
-  <div class="form-group"><label>Reason</label><textarea id="reportReason" placeholder="e.g. Contains people who don't belong on this list, misleading category, spam..." rows="4" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5;min-height:100px"></textarea></div>
+  <div class="form-group"><textarea id="reportReason" placeholder="e.g. Contains people who don't belong on this list, misleading category, spam..." rows="4" style="resize:vertical;font-family:var(--sans);font-size:14px;line-height:1.5;min-height:100px"></textarea></div>
   <div style="display:flex;gap:10px;justify-content:flex-end">
     <button class="btn btn-secondary" id="reportCancelBtn">Cancel</button>
     <button class="btn btn-primary" id="reportSubmitBtn">Submit report</button>
@@ -354,7 +449,7 @@ footer a{color:var(--text2);text-decoration:none;}footer a:hover{color:var(--tex
 <div class="admin-overlay" id="adminOverlay"><div class="admin-panel"><button class="modal-close" id="closeAdminBtn" style="float:right">&#10005;</button><div id="adminContent"><div style="max-width:320px;margin:40px auto;text-align:center"><h3 style="font-family:var(--serif);font-size:20px;margin-bottom:16px">Admin</h3><div class="form-group"><label>Password</label><input type="password" id="adminPw" placeholder="Enter admin password"></div><button class="btn btn-primary" id="adminLoginBtn" style="width:100%">Log in</button></div></div></div></div>
 
 <div class="toast" id="toast"></div>
-<footer>ok, bye <span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">waving_hand</span> <span style="margin:0 4px">·</span> <a href="#" id="adminLink" style="opacity:0.3">admin</a></footer>
+<footer>ok, bye <img src="waving_hand.svg" alt="" style="width:14px;height:14px;vertical-align:middle"> <span style="margin:0 4px">·</span> <a href="#" id="adminLink" style="opacity:0.3">admin</a></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
@@ -374,9 +469,8 @@ function showHome(){hideAll();document.getElementById('sec-browse').classList.ad
 function showChoose(){hideAll();document.getElementById('sec-choose').classList.add('active');document.getElementById('hero').style.display='none';document.getElementById('howWrapper').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
 function showSection(id){hideAll();document.getElementById(id).classList.add('active');document.getElementById('hero').style.display='none';document.getElementById('howWrapper').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
 
-document.getElementById('logoBtn').onclick=function(){showHome();window.scrollTo({top:0,behavior:'smooth'});};
 document.getElementById('startBtn').onclick=function(){showChoose();};
-document.getElementById('navHow').onclick=function(){showHome();setTimeout(function(){document.getElementById('howSection').scrollIntoView({behavior:'smooth'});},100);};
+document.getElementById('folderTabs').addEventListener('click',function(e){var tab=e.target.closest('.folder-tab');if(!tab)return;var panel=tab.dataset.panel;document.querySelectorAll('.folder-tab').forEach(function(t){t.classList.remove('tab-active');});document.querySelectorAll('.folder-panel').forEach(function(p){p.classList.remove('panel-active');});tab.classList.add('tab-active');document.getElementById(panel).classList.add('panel-active');var body=document.getElementById('folderBody');body.classList.toggle('body-tab2',panel==='panel-community');if(panel==='panel-community')loadLists();});
 document.getElementById('choiceShare').onclick=function(){showSection('sec-share');};
 document.getElementById('choiceBlock').onclick=function(){showSection('sec-block');};
 document.getElementById('choiceCollect').onclick=function(){showSection('sec-collect');};
@@ -407,13 +501,13 @@ document.getElementById('sharePublishBtn').onclick=function(){publish('share');}
 
 // Bookmarklets — encodeURI for escaping, batch blocking (3 concurrent) for speed
 function makeCollectScript(){
-var code=`(async()=>{var b=document.createElement('div');Object.assign(b.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});b.innerHTML='<span id=bs>Collecting...</span><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:99px\">0</span>';document.body.appendChild(b);var me='';try{var ml=document.querySelector('a[data-testid=\"AppTabBar_Profile_Link\"]');if(ml)me=ml.getAttribute('href').replace('/','').toLowerCase();}catch(e){}var f=new Set(),stale=0;function scan(){document.querySelectorAll('[data-testid=\"UserCell\"]').forEach(function(c){var a=c.querySelector('a[role=\"link\"]');if(a&&a.getAttribute('href')){var m=a.getAttribute('href').match(/^\\/([A-Za-z0-9_]{1,15})$/);if(m){var u=m[1].toLowerCase();if(u!==me&&['home','explore','search','notifications','messages','settings','compose','i'].indexOf(u)===-1)f.add(u)}}})}scan();for(var i=0;i<500;i++){window.scrollTo(0,document.body.scrollHeight);await new Promise(function(r){setTimeout(r,250)});var before=f.size;scan();document.getElementById('bc').textContent=f.size;document.getElementById('bs').textContent='Scrolling... '+f.size+' found';if(f.size===before){stale++;if(stale>=6)break}else{stale=0}}var list=Array.from(f).join(String.fromCharCode(10));await navigator.clipboard.writeText(list);document.getElementById('bs').textContent='Done! '+f.size+' accounts copied';document.getElementById('bc').style.cssText='background:#7C5CC4;padding:2px 10px;border-radius:99px;color:#fff';document.getElementById('bc').textContent=f.size;setTimeout(function(){b.style.transition='opacity .4s';b.style.opacity='0';setTimeout(function(){b.remove()},500)},5000)})()`;
+var code=`(async()=>{var b=document.createElement('div');Object.assign(b.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});b.innerHTML='<span id=bs>Collecting...</span><div style=\"display:flex;align-items:center;gap:8px\"><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:6px\">0</span><button id=bx style=\"background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.65);padding:2px 10px;border-radius:6px;cursor:pointer;font-family:system-ui;font-size:12px\">Cancel</button></div>';document.body.appendChild(b);var cancelled=false;document.getElementById('bx').onclick=function(){cancelled=true;document.getElementById('bs').textContent='Stopping...';};var me='';try{var ml=document.querySelector('a[data-testid=\"AppTabBar_Profile_Link\"]');if(ml)me=ml.getAttribute('href').replace('/','').toLowerCase();}catch(e){}var f=new Set(),stale=0;function scan(){document.querySelectorAll('[data-testid=\"UserCell\"]').forEach(function(c){var a=c.querySelector('a[role=\"link\"]');if(a&&a.getAttribute('href')){var m=a.getAttribute('href').match(/^\\/([A-Za-z0-9_]{1,15})$/);if(m){var u=m[1].toLowerCase();if(u!==me&&['home','explore','search','notifications','messages','settings','compose','i'].indexOf(u)===-1)f.add(u)}}})}scan();for(var i=0;i<500;i++){if(cancelled)break;window.scrollTo(0,document.body.scrollHeight);await new Promise(function(r){setTimeout(r,250)});var before=f.size;scan();document.getElementById('bc').textContent=f.size;document.getElementById('bs').textContent='Scrolling...';if(f.size===before){stale++;if(stale>=6)break}else{stale=0}}if(cancelled){b.remove();return;}var list=Array.from(f).join(String.fromCharCode(10));await navigator.clipboard.writeText(list);document.getElementById('bs').textContent='Done! '+f.size+' accounts copied';document.getElementById('bc').style.cssText='background:#7C5CC4;padding:2px 10px;border-radius:6px;color:#fff';document.getElementById('bc').textContent=f.size;setTimeout(function(){b.style.transition='opacity .4s';b.style.opacity='0';setTimeout(function(){b.remove()},500)},5000)})()`;
 return 'javascript:void('+encodeURI(code)+')';}
 function makeCollectAndBlockScript(){
-var code=`(async()=>{var b=document.createElement('div');Object.assign(b.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});b.innerHTML='<span id=bs>Collecting...</span><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:99px\">0</span>';document.body.appendChild(b);var me='';try{var ml=document.querySelector('a[data-testid=\"AppTabBar_Profile_Link\"]');if(ml)me=ml.getAttribute('href').replace('/','').toLowerCase();}catch(e){}var f=new Set(),stale=0;function scan(){document.querySelectorAll('[data-testid=\"UserCell\"]').forEach(function(c){var a=c.querySelector('a[role=\"link\"]');if(a&&a.getAttribute('href')){var m=a.getAttribute('href').match(/^\\/([A-Za-z0-9_]{1,15})$/);if(m){var u=m[1].toLowerCase();if(u!==me&&['home','explore','search','notifications','messages','settings','compose','i'].indexOf(u)===-1)f.add(u)}}})}scan();for(var i=0;i<500;i++){window.scrollTo(0,document.body.scrollHeight);await new Promise(function(r){setTimeout(r,250)});var before=f.size;scan();document.getElementById('bc').textContent=f.size;document.getElementById('bs').textContent='Scrolling... '+f.size+' found';if(f.size===before){stale++;if(stale>=6)break}else{stale=0}}var users=Array.from(f);document.getElementById('bs').textContent='Blocking '+users.length+'...';document.getElementById('bc').textContent='0/'+users.length;var blocked=0,failed=0,done=0;async function blockOne(user){try{var ct0=document.cookie.match(/ct0=([^;]+)/);if(!ct0)return;ct0=ct0[1];var r=await fetch('https://x.com/i/api/1.1/blocks/create.json',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','authorization':'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA','x-csrf-token':ct0,'x-twitter-auth-type':'OAuth2Session'},body:'screen_name='+user,credentials:'include'});if(r.ok)blocked++;else failed++}catch(e){failed++}}for(var j=0;j<users.length;j+=3){var batch=users.slice(j,j+3);await Promise.all(batch.map(function(u){return blockOne(u)}));done+=batch.length;document.getElementById('bc').textContent=done+'/'+users.length;document.getElementById('bs').textContent='Blocking... '+done+'/'+users.length;await new Promise(function(r){setTimeout(r,150+Math.random()*100)})}await navigator.clipboard.writeText(users.join(String.fromCharCode(10)));document.getElementById('bs').textContent='Done! '+blocked+' blocked'+(failed?', '+failed+' failed':'')+' — copied';b.style.background='#7C5CC4';setTimeout(function(){b.style.transition='opacity .4s';b.style.opacity='0';setTimeout(function(){b.remove()},500)},8000)})()`;
+var code=`(async()=>{var b=document.createElement('div');Object.assign(b.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});b.innerHTML='<span id=bs>Collecting...</span><div style=\"display:flex;align-items:center;gap:8px\"><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:6px\">0</span><button id=bx style=\"background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.65);padding:2px 10px;border-radius:6px;cursor:pointer;font-family:system-ui;font-size:12px\">Cancel</button></div>';document.body.appendChild(b);var cancelled=false;document.getElementById('bx').onclick=function(){cancelled=true;document.getElementById('bs').textContent='Stopping...';};var me='';try{var ml=document.querySelector('a[data-testid=\"AppTabBar_Profile_Link\"]');if(ml)me=ml.getAttribute('href').replace('/','').toLowerCase();}catch(e){}var f=new Set(),stale=0;function scan(){document.querySelectorAll('[data-testid=\"UserCell\"]').forEach(function(c){var a=c.querySelector('a[role=\"link\"]');if(a&&a.getAttribute('href')){var m=a.getAttribute('href').match(/^\\/([A-Za-z0-9_]{1,15})$/);if(m){var u=m[1].toLowerCase();if(u!==me&&['home','explore','search','notifications','messages','settings','compose','i'].indexOf(u)===-1)f.add(u)}}})}scan();for(var i=0;i<500;i++){if(cancelled)break;window.scrollTo(0,document.body.scrollHeight);await new Promise(function(r){setTimeout(r,250)});var before=f.size;scan();document.getElementById('bc').textContent=f.size;document.getElementById('bs').textContent='Scrolling...';if(f.size===before){stale++;if(stale>=6)break}else{stale=0}}if(cancelled){b.remove();return;}var users=Array.from(f);document.getElementById('bs').textContent='Blocking '+users.length+'...';document.getElementById('bc').textContent='0/'+users.length;var blocked=0,failed=0,done=0;async function blockOne(user){try{var ct0=document.cookie.match(/ct0=([^;]+)/);if(!ct0)return;ct0=ct0[1];var r=await fetch('https://x.com/i/api/1.1/blocks/create.json',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','authorization':'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA','x-csrf-token':ct0,'x-twitter-auth-type':'OAuth2Session'},body:'screen_name='+user,credentials:'include'});if(r.ok)blocked++;else failed++}catch(e){failed++}}for(var j=0;j<users.length;j+=3){if(cancelled)break;var batch=users.slice(j,j+3);await Promise.all(batch.map(function(u){return blockOne(u)}));done+=batch.length;document.getElementById('bc').textContent=done+'/'+users.length;document.getElementById('bs').textContent='Blocking...';await new Promise(function(r){setTimeout(r,150+Math.random()*100)})}if(cancelled){b.remove();return;}await navigator.clipboard.writeText(users.join(String.fromCharCode(10)));document.getElementById('bs').textContent='Done! '+blocked+' blocked'+(failed?', '+failed+' failed':'')+' — copied';b.style.background='#7C5CC4';setTimeout(function(){b.style.transition='opacity .4s';b.style.opacity='0';setTimeout(function(){b.remove()},500)},8000)})()`;
 return 'javascript:void('+encodeURI(code)+')';}
 function makeInstallBookmarklet(a){
-var code=`(async()=>{var users=${JSON.stringify(a)};var blocked=0,failed=0,done=0;var bar=document.createElement('div');Object.assign(bar.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});bar.innerHTML='<span id=bs>Starting...</span><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:99px\">0/'+users.length+'</span>';document.body.appendChild(bar);async function blockOne(user){try{var ct0=document.cookie.match(/ct0=([^;]+)/);if(!ct0)return;ct0=ct0[1];var r=await fetch('https://x.com/i/api/1.1/blocks/create.json',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','authorization':'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA','x-csrf-token':ct0,'x-twitter-auth-type':'OAuth2Session'},body:'screen_name='+user,credentials:'include'});if(r.ok)blocked++;else failed++}catch(e){failed++}}for(var j=0;j<users.length;j+=3){var batch=users.slice(j,j+3);await Promise.all(batch.map(function(u){return blockOne(u)}));done+=batch.length;document.getElementById('bc').textContent=done+'/'+users.length;document.getElementById('bs').textContent='Blocking... '+done+'/'+users.length;await new Promise(function(r){setTimeout(r,150+Math.random()*100)})}document.getElementById('bs').textContent='Done! '+blocked+' blocked'+(failed?', '+failed+' failed':'');bar.style.background='#7C5CC4';setTimeout(function(){bar.style.transition='opacity .4s';bar.style.opacity='0';setTimeout(function(){bar.remove()},500)},6000)})()`;
+var code=`(async()=>{var users=${JSON.stringify(a)};var blocked=0,failed=0,done=0;var bar=document.createElement('div');Object.assign(bar.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',background:'#1A1A18',color:'#fff',padding:'14px 20px',fontFamily:'system-ui,sans-serif',fontSize:'13px',display:'flex',justifyContent:'space-between',borderRadius:'0 0 12px 12px'});bar.innerHTML='<span id=bs>Starting...</span><div style=\"display:flex;align-items:center;gap:8px\"><span id=bc style=\"background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:6px\">0/'+users.length+'</span><button id=bx style=\"background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.65);padding:2px 10px;border-radius:6px;cursor:pointer;font-family:system-ui;font-size:12px\">Cancel</button></div>';document.body.appendChild(bar);var cancelled=false;document.getElementById('bx').onclick=function(){cancelled=true;document.getElementById('bs').textContent='Stopping...';};async function blockOne(user){try{var ct0=document.cookie.match(/ct0=([^;]+)/);if(!ct0)return;ct0=ct0[1];var r=await fetch('https://x.com/i/api/1.1/blocks/create.json',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded','authorization':'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA','x-csrf-token':ct0,'x-twitter-auth-type':'OAuth2Session'},body:'screen_name='+user,credentials:'include'});if(r.ok)blocked++;else failed++}catch(e){failed++}}for(var j=0;j<users.length;j+=3){if(cancelled)break;var batch=users.slice(j,j+3);await Promise.all(batch.map(function(u){return blockOne(u)}));done+=batch.length;document.getElementById('bc').textContent=done+'/'+users.length;document.getElementById('bs').textContent='Blocking...';await new Promise(function(r){setTimeout(r,150+Math.random()*100)})}if(cancelled){bar.remove();return;}document.getElementById('bs').textContent='Done! '+blocked+' blocked'+(failed?', '+failed+' failed':'');bar.style.background='#7C5CC4';setTimeout(function(){bar.style.transition='opacity .4s';bar.style.opacity='0';setTimeout(function(){bar.remove()},500)},6000)})()`;
 return 'javascript:void('+encodeURI(code)+')';}
 function makeBlockScript(a){return '// ok, bye \u2014 block '+a.length+'\n(async()=>{\nconst u='+JSON.stringify(a)+';let b=0,f=0;const bar=document.createElement("div");Object.assign(bar.style,{position:"fixed",top:0,left:0,right:0,zIndex:99999,background:"#1A1A18",color:"#fff",padding:"14px 20px",fontFamily:"system-ui",fontSize:"13px",display:"flex",justifyContent:"space-between"});bar.innerHTML=\'<span id=s>Starting...</span><span id=c>0/\'+u.length+\'</span>\';document.body.appendChild(bar);for(const x of u){try{const ct0=document.cookie.match(/ct0=([^;]+)/)?.[1];if(!ct0){document.getElementById("s").textContent="Not logged in";break}const r=await fetch("https://x.com/i/api/1.1/blocks/create.json",{method:"POST",headers:{"content-type":"application/x-www-form-urlencoded","authorization":"Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA","x-csrf-token":ct0,"x-twitter-auth-type":"OAuth2Session"},body:"screen_name="+x,credentials:"include"});if(r.ok)b++;else f++}catch{f++}document.getElementById("c").textContent=(b+f)+"/"+u.length;document.getElementById("s").textContent="Blocking @"+x+"...";await new Promise(r=>setTimeout(r,200+Math.random()*150))}document.getElementById("s").textContent="Done! "+b+" blocked"+(f?", "+f+" failed":"");bar.style.background="#7C5CC4";setTimeout(()=>bar.remove(),8000)})();';}
 
@@ -422,20 +516,39 @@ document.getElementById('collectBookmarklet').href=makeCollectScript();
 document.getElementById('shareBookmarklet').href=makeCollectScript();
 
 // Load & render
-async function loadLists(){if(!db){document.getElementById('listsContainer').innerHTML='<div class="empty-state"><div class="big">⚠️</div><p>Database not connected</p></div>';return;}try{var r=await db.from('blocklists').select('*').order('follower_count',{ascending:false});if(r.error)throw r.error;allLists=r.data||[];renderLists();}catch(e){console.error(e);document.getElementById('listsContainer').innerHTML='<div class="empty-state"><div class="big">⚠️</div><p>'+esc(e.message)+'</p></div>';}}
-function renderLists(){var search=document.getElementById('searchInput').value.toLowerCase();var filtered=allLists;if(currentFilter!=='all')filtered=filtered.filter(function(l){return l.category===currentFilter;});if(search)filtered=filtered.filter(function(l){return l.name.toLowerCase().indexOf(search)!==-1||(l.description||'').toLowerCase().indexOf(search)!==-1||(l.creator_name||'').toLowerCase().indexOf(search)!==-1;});var c=document.getElementById('listsContainer');if(!filtered.length){c.innerHTML='<div class="empty-state"><div class="big">📭</div><p>'+(allLists.length?'No lists match':'No lists yet — be the first!')+'</p></div>';return;}c.innerHTML=filtered.map(function(l){return '<div class="list-card" data-id="'+l.id+'"><div class="list-card-top"><div><h3>'+esc(l.name)+' <span class="cat-tag cat-'+(l.category||'general')+'">'+(l.category||'general')+'</span></h3><div class="desc">'+esc(l.description||'')+'</div><div class="list-meta"><span>'+l.account_count+' accounts</span>'+(l.creator_name?'<span>by '+esc(l.creator_name)+'</span>':'')+'</div></div></div></div>';}).join('');c.querySelectorAll('.list-card').forEach(function(card){card.onclick=function(){openDetail(this.dataset.id);};});}
+function skeletonHTML(){var s='<div class="sk sk-title"></div><div class="sk sk-line"></div><div class="sk sk-line sk-short"></div><div class="sk sk-meta"></div>';return [1,2,3].map(function(){return '<div class="skeleton-card">'+s+'</div>';}).join('');}
+async function loadLists(){var c=document.getElementById('listsContainer');c.innerHTML=skeletonHTML();if(!db){c.innerHTML='<div class="empty-state"><div class="big">⚠️</div><p>Database not connected</p></div>';return;}try{var r=await db.from('blocklists').select('*').order('follower_count',{ascending:false});if(r.error)throw r.error;allLists=r.data||[];renderLists();}catch(e){console.error(e);c.innerHTML='<div class="empty-state"><div class="big">⚠️</div><p>'+esc(e.message)+'</p></div>';}}
+function renderLists(){var search=document.getElementById('searchInput').value.toLowerCase();var filtered=allLists;if(currentFilter!=='all')filtered=filtered.filter(function(l){return l.category===currentFilter;});if(search)filtered=filtered.filter(function(l){return l.name.toLowerCase().indexOf(search)!==-1||(l.description||'').toLowerCase().indexOf(search)!==-1||(l.creator_name||'').toLowerCase().indexOf(search)!==-1;});var c=document.getElementById('listsContainer');if(!filtered.length){c.innerHTML='<div class="empty-state"><div class="big">📭</div><p>'+(allLists.length?'Nothing here yet':'No lists yet — be the first!')+'</p></div>';return;}c.innerHTML=filtered.map(function(l){var cat=l.category||'general';return '<div class="list-card lc-'+cat+'" data-id="'+l.id+'"><div class="list-card-shell"><div class="list-card-inner"><div class="list-card-bar"></div><h3>'+esc(l.name)+' <span class="cat-tag cat-'+cat+'">'+cat+'</span></h3><div class="desc">'+esc(l.description||'')+'</div><div class="list-meta"><span>'+l.account_count+' accounts</span>'+(l.creator_name?'<span>by '+esc(l.creator_name)+'</span>':'')+'</div><div class="list-card-wm">'+l.account_count+'</div></div></div></div>';}).join('');c.querySelectorAll('.list-card').forEach(function(card,i){card.onclick=function(){openDetail(this.dataset.id);};setTimeout(function(){card.classList.add('card-vis');},i*60);});}
+
+// Hero entrance
+(function(){var els=[document.querySelector('.hero-badge'),document.querySelector('.hero h1'),document.querySelector('.hero p'),document.querySelector('.hero-actions')];els.forEach(function(el,i){if(!el)return;setTimeout(function(){el.classList.add('h-vis');},80+i*110);});})();
 
 function openDetail(id){
   var list=allLists.find(function(l){return l.id===id;});if(!list)return;
   showSection('sec-detail');
-  var accts=list.accounts||[];var shareUrl=window.location.origin+window.location.pathname+'?list='+list.id;
+  var accts=list.accounts||[];
+  var cat=list.category||'general';
+  var ccMap={spam:'red',bots:'blue',harassment:'amber',antis:'pink',general:'green'};
+  var cc=ccMap[cat]||'green';
+  var shareUrl=window.location.origin+window.location.pathname+'?list='+list.id;
   var xText=encodeURIComponent('Check out this blocklist: "'+list.name+'"\n'+shareUrl);
   document.getElementById('detailContent').innerHTML=
-    '<div class="detail-header"><h1 class="detail-title">'+esc(list.name)+'<span class="cat-tag cat-'+(list.category||'general')+'" style="font-family:var(--sans);vertical-align:middle;margin-left:14px">'+(list.category||'general')+'</span></h1><button id="reportBtn" title="Report this list" style="flex-shrink:0;background:none;border:none;cursor:pointer;color:var(--text3);padding:8px;border-radius:99px;transition:all 0.2s;display:flex;align-items:center" onmouseover="this.style.color=\'var(--red)\';this.style.background=\'var(--red-bg)\'" onmouseout="this.style.color=\'var(--text3)\';this.style.background=\'none\'"><span class="material-icons-outlined" style="font-size:20px">flag</span></button></div>'+
+    '<div class="detail-page" id="detailPage">'+
+    '<div class="detail-header">'+
+      '<h1 class="detail-title">'+esc(list.name)+' <span class="cat-tag cat-'+cat+'">'+cat+'</span></h1>'+
+      '<button class="detail-report-btn" id="reportBtn" title="Report this list"><span class="material-icons-outlined">flag</span></button>'+
+    '</div>'+
     '<div class="detail-desc">'+esc(list.description||'')+(list.creator_name?' <span style="color:var(--text3)">— by '+esc(list.creator_name)+'</span>':'')+'</div>'+
-    '<div class="detail-stats"><div><div class="stat-num">'+list.account_count+'</div><div class="stat-label">Accounts</div></div></div>'+
-    '<div class="detail-actions"><button class="btn btn-purple" id="installBtn"><span class="material-icons-outlined" style="font-size:16px">download</span> Install</button><a class="btn btn-secondary" href="https://x.com/intent/tweet?text='+xText+'" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Share</a></div>'+
-    '<div class="accounts-grid"><h4>'+accts.length+' accounts</h4>'+accts.map(function(a){return '<a class="acct-chip" href="https://x.com/'+esc(a)+'" target="_blank">@'+esc(a)+'</a>';}).join('')+'</div>';
+    '<div class="detail-actions-row">'+
+      '<button class="btn-install-new" id="installBtn"><span class="bi-icon"><span class="material-icons-outlined">download</span></span>Install blocklist</button>'+
+      '<a class="btn-share-new" href="https://x.com/intent/tweet?text='+xText+'" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>Share on X</a>'+
+    '</div>'+
+    '<div class="detail-accts-shell"><div class="detail-accts-inner">'+
+      '<div class="detail-accts-hdr"><span class="detail-accts-label">'+accts.length+' accounts</span></div>'+
+      '<div class="detail-acct-wrap">'+accts.map(function(a){return '<a class="detail-acct-chip" href="https://x.com/'+esc(a)+'" target="_blank" rel="noopener">@'+esc(a)+'</a>';}).join('')+'</div>'+
+    '</div></div>'+
+    '</div>';
+  setTimeout(function(){var dp=document.getElementById('detailPage');if(dp)dp.classList.add('dp-vis');},30);
   document.getElementById('installBtn').onclick=function(){showInstallModal(id);};
   document.getElementById('reportBtn').onclick=function(){document.getElementById('reportReason').value='';document.getElementById('reportModal').classList.add('show');document.getElementById('reportSubmitBtn').onclick=function(){var reason=document.getElementById('reportReason').value.trim();if(!reason){toast('Please enter a reason');return;}if(db)db.from('reports').insert({blocklist_id:id,reason:reason}).then(function(){toast('Report submitted — thank you');document.getElementById('reportModal').classList.remove('show');});};};
 }
